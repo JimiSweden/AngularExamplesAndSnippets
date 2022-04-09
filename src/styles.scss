@@ -3,6 +3,10 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+/* main is used for router-outlet, setting styles directly on router-outlet would affect child routes outlets */
+app-root>main {
+  padding: 1rem 2rem 2rem 2rem;
+}
 
 /* mat-button-content-vertical-align-middle; use on span in buttons to center multiple content, i.e. an img used as icon and a text,
 NOTE; if you are

@@ -2,6 +2,25 @@
 > might be out of synch, but will try to keep notes on things being done.
 > order is bottom-up to align with git-commits 
 
+## add example of Material button-toggle with ng-template and subscribed FormControl
+> this template lets you reuse the same look and logic from one mat-button-toggle-group
+> injecting the FormControl to be attached
+[angular api documentation] (https://material.angular.io/components/button-toggle/api)
+
+```ps
+ng g c components/ButtonToggleTemplateExample
+```
+> a note on using subscription on FormControl 
+> unsubscribing is often needed, and also here from what I have found, 
+> however some unsubscribing in Angular are handled internally and I'm not sure it really is needed (but I have implemented it)
+
+- also added a dependency  to make unsubscribing easier
+Read the documentation on [until-destroy](https://github.com/ngneat/until-destroy) for more options and how to.
+```ps
+npm install @ngneat/until-destroy
+```
+- also add routing
+
 ## configure ng to not add prefix "app" on generation
 by default Angular creates components with prefix 'app'
 although it is good praxis to prefix your own components 
