@@ -2,3 +2,28 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/* mat-button-content-vertical-align-middle; use on span in buttons to center multiple content, i.e. an img used as icon and a text,
+NOTE; if you are
+example: from HeaderComponent
+ <a mat-button aria-label="github repository for this example app" href="https://github.com/JimiSweden/AngularExamplesAndSnippets" target="_blank">
+    <!-- <span class="vertical-align-content"> -->
+    <span class="mat-button-content-vertical-align-middle">
+      <img src="../../assets/icons/github-circle-white-transparent.svg"
+      alt="github repository for this example app" class="logo-icon-image">
+      Github
+    </span>
+  </a>
+
+*/
+.mat-button , .mat-flat-button , .mat-stroked-button , .mat-raised-button , .mat-icon-button , .mat-fab , .mat-mini-fab {
+  .mat-button-content-vertical-align-middle>*{
+    vertical-align: middle;
+  }
+}
+
+.rounded-image {
+  border-radius: 50%;
+  // border-radius: 50% !important;
+}
