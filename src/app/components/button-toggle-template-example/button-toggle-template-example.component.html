@@ -12,11 +12,12 @@
       Note:  you must import the ReactiveFormsModule in app.module.ts (not FormsModule)
       to be able to use the '[formControl]' property
       See the usage further down to understand the props.
-      you can pass in objects also, f ex if you have props to output or icon names etc...
+      you can pass in objects also, f ex if you have props to output tooltip, icon names etc...
+      (see commit a86b0c0e if you want the simpler version only passing the FormControl)
     -->
-    <ng-template #buttonGroupTemplate let-control="control">
-      <mat-button-toggle-group [formControl]="control"
-        matTooltip="select your choice">
+    <ng-template #buttonGroupTemplate let-formControlObject="formControlObject">
+      <mat-button-toggle-group [formControl]="formControlObject.control"
+        [matTooltip]="formControlObject.tooltip" matTooltipPosition="right">
         <mat-button-toggle value="true">
           <mat-icon class="green">
             check_circle
@@ -33,23 +34,29 @@
           </mat-icon>
         </mat-button-toggle>
       </mat-button-toggle-group>
-      <div>selected value is: {{control.value == '' ? 'opt out' : control.value ?? 'not selected'}}</div>
+      <div>selected value is: {{formControlObject.control.value == '' ? 'opt out' : formControlObject.control.value ?? 'not selected'}}</div>
     </ng-template>
 
     <!-- here we reuse the template as many times we want,
       all we need is a FormControl from the component (.ts) and pass it here in ngTemplateOutletContext
     -->
 
-    <p>Make your first choice</p>
-    <ng-template [ngTemplateOutlet]="buttonGroupTemplate" [ngTemplateOutletContext]="{control: firstFormControl}">
-    </ng-template>
 
-    <p>Make your second choice</p>
-    <ng-template [ngTemplateOutlet]="buttonGroupTemplate" [ngTemplateOutletContext]="{control: secondFormControl}">
+    <h3>Make your first choice</h3>
+    <ng-template [ngTemplateOutlet]="buttonGroupTemplate"
+    [ngTemplateOutletContext]="{formControlObject: firstFormControlObject}">
     </ng-template>
+    <div style="padding-top: 2rem;"></div>
 
-    <p>Make your third choice</p>
-    <ng-template [ngTemplateOutlet]="buttonGroupTemplate" [ngTemplateOutletContext]="{control: thirdFormControl}">
+    <h3>Make your second choice</h3>
+    <ng-template [ngTemplateOutlet]="buttonGroupTemplate"
+    [ngTemplateOutletContext]="{formControlObject: secondFormControlObject}">
+    </ng-template>
+    <div style="padding-top: 2rem;"></div>
+
+    <h3>Make your third choice</h3>
+    <ng-template [ngTemplateOutlet]="buttonGroupTemplate"
+    [ngTemplateOutletContext]="{formControlObject: thirdFormControlObject}">
     </ng-template>
 
     <mat-card-actions>

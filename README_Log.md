@@ -2,6 +2,11 @@
 > might be out of synch, but will try to keep notes on things being done.
 > order is bottom-up to align with git-commits 
 
+
+## Refactor example of Material button-toggle-template passing in more props
+passing an object into the template allows us to add additional props
+such as 'tooltip' text...
+
 ## add example of Material button-toggle with ng-template and subscribed FormControl
 > this template lets you reuse the same look and logic from one mat-button-toggle-group
 > injecting the FormControl to be attached

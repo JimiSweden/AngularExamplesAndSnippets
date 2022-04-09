@@ -20,6 +20,23 @@ export class ButtonToggleTemplateExampleComponent implements OnInit, OnDestroy {
   public secondFormControl = new FormControl();
   public thirdFormControl = new FormControl();
 
+  /** objects to be passed into the button-group-template,
+   *  allowing additional data such as tooltip */
+  public firstFormControlObject = {
+    control : this.firstFormControl,
+    tooltip : 'first tooltip'
+  }
+
+  public secondFormControlObject = {
+    control : this.secondFormControl,
+    tooltip : 'second tooltip'
+  }
+
+  public thirdFormControlObject = {
+    control : this.thirdFormControl,
+    tooltip : 'third tooltip'
+  }
+
   /** unsubscribing is needed, from what I have found, however some things in Angular are handled internally and I'm not sure it really is needed
    * due to blacklist in @UntilDestroy() this will not be unsubscribed automagically upon component destruction
   */
