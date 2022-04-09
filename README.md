@@ -2,6 +2,10 @@
 
 A Lab project containing snippets and examples 
 
+## Log with commands and stuff being done
+> might be out of synch, but will try to keep notes on things being done.
+See [README_Log] (README_Log.md)
+
 ## Versions
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.2.
 
