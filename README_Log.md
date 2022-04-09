@@ -2,6 +2,20 @@
 > might be out of synch, but will try to keep notes on things being done.
 > order is bottom-up to align with git-commits 
 
+## configure ng to not add prefix "app" on generation
+by default Angular creates components with prefix 'app'
+although it is good praxis to prefix your own components 
+to avoid conflicts with other modules it is mostly not adding value
+(if you create public shared modules you should)
+
+angular.json
+```json
+"projects": {
+  //...
+  "prefix": "",
+  //...
+}
+```
 
 ## add application header AppHeader (mat-toolbar)
  ```ps
