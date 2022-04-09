@@ -1,6 +1,12 @@
 # AngularExamplesAndSnippets
 
+A Lab project containing snippets and examples 
+
+## Versions
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.2.
+
+For compatible typescript and nodejs versions this is my goto page 
+https://stackoverflow.com/questions/60248452/is-there-a-compatibility-list-for-angular-angular-cli-and-node-js
 
 ## Development server
 
