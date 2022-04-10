@@ -1,0 +1,33 @@
+<mat-card>
+  <mat-card-title>Material button-toggle reusable component with dynamically loaded data from service</mat-card-title>
+  <mat-card-subtitle>
+    with dynamically generated buttons from service
+    lets you reuse the same look and logic injecting props for creating n number of buttons
+    <br>
+    - buttons value changes are logged in the developer-console if you set logChangesToConsole.
+
+    <br>
+    - the "selected value is.. is passed into the template as 'ng-content'"
+  </mat-card-subtitle>
+  <mat-card-content style="">
+
+    <mat-slide-toggle [(ngModel)]="logChangesToConsole">
+      log changes to console: {{logChangesToConsole}}
+    </mat-slide-toggle>
+    <div ></div>
+
+    <ng-container *ngFor="let toggleGroupData of listOfToggleGroupData">
+      <div style="padding-top: 2rem;"></div>
+      <button-toggle-dynamic-template name="" [toggleGroupData]="toggleGroupData" [logChangesToConsole]="logChangesToConsole">
+        <div>selected value is: {{toggleGroupData.formControl.value == '' ? 'opt out' :
+          toggleGroupData.formControl.value ?? 'not selected'}}</div>
+      </button-toggle-dynamic-template>
+    </ng-container>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button color="warn" (click)="clearSelectedValues()">
+      Clear Your Choices
+    </button>
+  </mat-card-actions>
+</mat-card>

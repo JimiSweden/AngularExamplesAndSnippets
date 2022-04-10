@@ -2,6 +2,11 @@
 > might be out of synch, but will try to keep notes on things being done.
 > order is bottom-up to align with git-commits 
 
+
+## add extended example of dynamic/generic Material button-toggle-template
+Using a mock service to provide the data needed to create our buttons
+
+
 ## add example of dynamic/generic Material button-toggle-template
 with dynamically generated buttons and subscribed FormControl
 lets you reuse the same look and logic 

@@ -12,11 +12,14 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatCardModule} from '@angular/material/card';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
 import { ButtonToggleTemplateExampleComponent } from './components/button-toggle-template-example/button-toggle-template-example.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonToggleDynamicTemplateComponent } from './components/button-toggle-dynamic-template/button-toggle-dynamic-template.component';
 import { ButtonToggleExamplesPageComponent } from './components/button-toggle-examples-page/button-toggle-examples-page.component';
 import { ButtonToggleDynamicTemplateImplementationExampleComponent } from './examples/button-toggle-dynamic-template-implementation-example/button-toggle-dynamic-template-implementation-example.component';
+import { ButtonToggleDynamicTemplateImplementationExampleWithDataFromServiceComponent } from './examples/button-toggle-dynamic-template-implementation-example-with-data-from-service/button-toggle-dynamic-template-implementation-example-with-data-from-service.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +28,7 @@ import { ButtonToggleDynamicTemplateImplementationExampleComponent } from './exa
     ButtonToggleDynamicTemplateComponent,
     ButtonToggleExamplesPageComponent,
     ButtonToggleDynamicTemplateImplementationExampleComponent,
+    ButtonToggleDynamicTemplateImplementationExampleWithDataFromServiceComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +39,8 @@ import { ButtonToggleDynamicTemplateImplementationExampleComponent } from './exa
     MatIconModule,
     MatButtonModule,
     MatButtonToggleModule,
+    FormsModule,
+    MatSlideToggleModule,
     MatCardModule,
     ReactiveFormsModule
   ],
