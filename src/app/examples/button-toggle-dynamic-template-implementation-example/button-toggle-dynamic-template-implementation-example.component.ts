@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { IButtonToggleGroupData } from '../../components/button-toggle-dynamic-template/button-toggle-dynamic-template.component';
+import { IButtonToggleGroupData } from '../../components/models/models';
+
 
 @Component({
   selector: 'button-toggle-dynamic-template-implementation-example',

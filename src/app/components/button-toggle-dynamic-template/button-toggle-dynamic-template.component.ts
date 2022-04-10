@@ -1,25 +1,6 @@
 import { Component, Input, OnInit, Output, OnDestroy, EventEmitter } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { MatIcon } from '@angular/material/icon';
 import { Subscription } from 'rxjs';
-
-
-
-export interface IToggleGroupDataButton{
-
-    value: string | boolean | undefined;
-    icon: string;
-    css? : string;
-    style? : string;
-
-}
-export interface IButtonToggleGroupData{
-
-    formControl: FormControl;
-    tooltip?: string;
-    name?: string;
-    buttons: Array<IToggleGroupDataButton>;
-}
+import { IButtonToggleGroupData } from '../models/models';
 
   /** imagine building the button-groups from your real backend,
    * perhaps saved from a UI building your structure
@@ -70,7 +51,7 @@ export class ButtonToggleDynamicTemplateComponent implements OnInit, OnDestroy {
     /** subscribe to changes for logging */
     this.formControlSubscription =  this.toggleGroupData.formControl.valueChanges
     .subscribe(
-      value => {
+      (value: any) => {
         this.selectedValueEventEmitter.next(value);
         this.logChangedSelectedToConsole(value);
       }

@@ -4,7 +4,11 @@
   [formControl]="toggleGroupData.formControl"
   id="toggle-group"
   [matTooltip]="tooltip" matTooltipPosition="right">
-    <mat-button-toggle *ngFor="let button of toggleGroupData.buttons" [value]="button.value">
+    <mat-button-toggle *ngFor="let button of toggleGroupData.buttons"
+    [value]="button.value"
+    [matTooltip]="button.tooltip ? button.tooltip : ''"
+    matTooltipPosition="below"
+    >
       <mat-icon [class]="button.css" [style]="button.style">
         {{button.icon}}
       </mat-icon>
