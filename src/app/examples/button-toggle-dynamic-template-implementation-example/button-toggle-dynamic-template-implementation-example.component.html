@@ -1,0 +1,22 @@
+<p>button-toggle-dynamic-template-implementation-example works!</p>
+<mat-card>
+  <mat-card-title>Material button-toggle reusable component with dynamically generated buttons and subscribed FormControl</mat-card-title>
+  <mat-card-subtitle>
+    with dynamically generated buttons and subscribed FormControl
+    lets you reuse the same look and logic injecting props for creating n number of buttons
+    <br/>
+    - buttons value changes are logged in the developer-console. <br>
+    - the "selected value is.. is passed into the template as 'ng-content'"
+  </mat-card-subtitle>
+  <mat-card-content style="">
+
+    <button-toggle-dynamic-template name="" [toggleGroupData]="firstToggleGroupData" [logChangesToConsole]="true">
+      <div>selected value is: {{firstToggleGroupData.formControl.value == '' ? 'opt out' : firstToggleGroupData.formControl.value ?? 'not selected'}}</div>
+    </button-toggle-dynamic-template>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="warn" (click)="clearSelectedValues()">
+      Clear Your Choices
+    </button>
+  </mat-card-actions>
+</mat-card>

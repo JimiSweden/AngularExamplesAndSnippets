@@ -14,11 +14,17 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 
 import { ButtonToggleTemplateExampleComponent } from './components/button-toggle-template-example/button-toggle-template-example.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ButtonToggleDynamicTemplateComponent } from './components/button-toggle-dynamic-template/button-toggle-dynamic-template.component';
+import { ButtonToggleExamplesPageComponent } from './components/button-toggle-examples-page/button-toggle-examples-page.component';
+import { ButtonToggleDynamicTemplateImplementationExampleComponent } from './examples/button-toggle-dynamic-template-implementation-example/button-toggle-dynamic-template-implementation-example.component';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    ButtonToggleTemplateExampleComponent
+    ButtonToggleTemplateExampleComponent,
+    ButtonToggleDynamicTemplateComponent,
+    ButtonToggleExamplesPageComponent,
+    ButtonToggleDynamicTemplateImplementationExampleComponent,
   ],
   imports: [
     BrowserModule,

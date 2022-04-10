@@ -1,0 +1,19 @@
+
+  <div class="button-group-name">{{name}}</div>
+  <mat-button-toggle-group
+  [formControl]="toggleGroupData.formControl"
+  id="toggle-group"
+  [matTooltip]="tooltip" matTooltipPosition="right">
+    <mat-button-toggle *ngFor="let button of toggleGroupData.buttons" [value]="button.value">
+      <mat-icon [class]="button.css" [style]="button.style">
+        {{button.icon}}
+      </mat-icon>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <!-- if content is provided it will be output here below the buttons.
+    f ex in parent component:
+    <div>selected value is: {{selectedValue == '' ? 'opt out' : selectedValue ?? 'not selected'}}</div>
+    where 'selectedValue' comes from this components output prop 'selectedValue'
+  -->
+  <ng-content></ng-content>

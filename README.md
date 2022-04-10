@@ -6,6 +6,10 @@ A Lab project containing snippets and examples
 > might be out of synch, but will try to keep notes on things being done.
 See [README_Log] (README_Log.md)
 
+## links to useful references
+[material icons docs](https://material.angular.io/components/icon/overview)
+[material icons list/search](https://fonts.google.com/icons?selected=Material+Icons)
+
 ## Versions
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.2.
 

@@ -2,6 +2,26 @@
 > might be out of synch, but will try to keep notes on things being done.
 > order is bottom-up to align with git-commits 
 
+## add example of dynamic/generic Material button-toggle-template
+with dynamically generated buttons and subscribed FormControl
+lets you reuse the same look and logic 
+injecting props for creating n number of buttons
+> Imagine building the button-groups dynamically from your backend,
+> perhaps saved from a UI building your structure
+
+```ts
+toggleGroupData :{
+  formControl: FormControl;
+  tooltip: string;
+  name: string;
+  buttons: [] {
+    value: string | boolean | undefined;
+    icon: string;
+    css : string;
+    style : string;
+  }
+}
+```
 
 ## Refactor example of Material button-toggle-template passing in more props
 passing an object into the template allows us to add additional props

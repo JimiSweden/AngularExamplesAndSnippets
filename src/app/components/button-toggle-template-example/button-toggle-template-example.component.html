@@ -58,14 +58,11 @@
     <ng-template [ngTemplateOutlet]="buttonGroupTemplate"
     [ngTemplateOutletContext]="{formControlObject: thirdFormControlObject}">
     </ng-template>
-
-    <mat-card-actions>
-
-
-      <button mat-raised-button color="warn" (click)="clearSelectedValues()" style="margin-top: 2rem;">
-        Clear Your Choices
-      </button>
-    </mat-card-actions>
-
   </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button color="warn" (click)="clearSelectedValues()">
+      Clear Your Choices
+    </button>
+  </mat-card-actions>
 </mat-card>
