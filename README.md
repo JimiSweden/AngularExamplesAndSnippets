@@ -2,6 +2,8 @@
 
 A Lab project containing snippets and examples 
 
+> Note: this project uses material design [Angular Material](https://material.angular.io/)
+
 ## Log with commands and stuff being done
 > might be out of synch, but will try to keep notes on things being done.
 See [README_Log](README_Log.md)
