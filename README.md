@@ -4,7 +4,7 @@ A Lab project containing snippets and examples
 
 ## Log with commands and stuff being done
 > might be out of synch, but will try to keep notes on things being done.
-See [README_Log] (README_Log.md)
+See [README_Log](README_Log.md)
 
 ## links to useful references
 [material icons docs](https://material.angular.io/components/icon/overview)
