@@ -11,8 +11,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatCardModule} from '@angular/material/card';
 import {MatTooltipModule} from '@angular/material/tooltip';
-
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatListModule} from '@angular/material/list';
+import {MatSidenavModule} from '@angular/material/sidenav'
 
 import { ButtonToggleTemplateExampleComponent } from './components/button-toggle-template-example/button-toggle-template-example.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -20,6 +21,8 @@ import { ButtonToggleDynamicTemplateComponent } from './components/button-toggle
 import { ButtonToggleExamplesPageComponent } from './components/button-toggle-examples-page/button-toggle-examples-page.component';
 import { ButtonToggleDynamicTemplateImplementationExampleComponent } from './examples/button-toggle-dynamic-template-implementation-example/button-toggle-dynamic-template-implementation-example.component';
 import { ButtonToggleDynamicTemplateImplementationExampleWithDataFromServiceComponent } from './examples/button-toggle-dynamic-template-implementation-example-with-data-from-service/button-toggle-dynamic-template-implementation-example-with-data-from-service.component';
+import { SideNavMatNavListComponent } from './components/navigation/side-nav-mat-nav-list/side-nav-mat-nav-list.component';
+import { ExamplesPageComponent } from './pages/examples-page/examples-page.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,21 +31,25 @@ import { ButtonToggleDynamicTemplateImplementationExampleWithDataFromServiceComp
     ButtonToggleDynamicTemplateComponent,
     ButtonToggleExamplesPageComponent,
     ButtonToggleDynamicTemplateImplementationExampleComponent,
-    ButtonToggleDynamicTemplateImplementationExampleWithDataFromServiceComponent
+    ButtonToggleDynamicTemplateImplementationExampleWithDataFromServiceComponent,
+    ExamplesPageComponent,
+    SideNavMatNavListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
     MatToolbarModule,
     MatTooltipModule,
     MatIconModule,
     MatButtonModule,
     MatButtonToggleModule,
-    FormsModule,
     MatSlideToggleModule,
     MatCardModule,
-    ReactiveFormsModule
+    MatListModule,
+    MatSidenavModule
   ],
   providers: [],
   bootstrap: [AppComponent]

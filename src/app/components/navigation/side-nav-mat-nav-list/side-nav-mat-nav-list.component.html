@@ -1,0 +1,33 @@
+<div *ngIf="!links">
+  No links found.. hides nav list
+</div>
+
+
+<mat-drawer-container class="side-menu-container">
+  <mat-drawer mode="side" opened>
+      <mat-nav-list>
+        <!-- routerLinkActive must be on the parent of routerLink here
+          to override background-color of .mat-list-item:focus (the light color when moving he pointer over the items)
+          otherwise background-color of 'active-link' is applied after focus is lost, i.e you clicked somewhere else
+          if [routerLink]="link.path" is not set on the mat-list-item, all of the button is not clickable (and styling that with css is a pain)
+        -->
+        <div routerLinkActive="active-link" *ngFor="let link of links" >
+          <mat-list-item matLine [routerLink]="link.path">
+            {{ link.name }}
+          </mat-list-item>
+        </div>
+
+      <!-- this example is useful if you have an icon that has other click actions -->
+      <!-- <mat-list-item  *ngFor="let link of links"  routerLinkActive="active-link">
+         <a matLine [routerLink]="link.path"  style="width: 100%;">{{ link.name }}</a>
+         <button mat-icon-button>
+            <mat-icon>info</mat-icon>
+         </button>
+      </mat-list-item> -->
+    </mat-nav-list>
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <ng-content></ng-content>
+  </mat-drawer-content>
+</mat-drawer-container>

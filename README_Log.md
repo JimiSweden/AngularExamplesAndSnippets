@@ -1,7 +1,16 @@
 # Log with commands and stuff being done
-> might be out of synch, but will try to keep notes on things being done.
+> might be out of sync, but will try to keep notes on things being done.
 > order is bottom-up to align with git-commits 
 
+
+## TODO: 
+- scroll på nav-list. som i https://material.angular.io/components 
+
+## add navigation using mat-nav-list for examples
+
+adding a side menu to select what example to display the side-menu here is supposed to be reusable.
+
+using `<mat-drawer-container>` and `<mat-nav-list>`
 
 ## add A navigation service and generate menu links from Routes
  This is perhaps "overdoing it".
