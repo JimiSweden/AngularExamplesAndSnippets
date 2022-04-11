@@ -3,6 +3,41 @@
 > order is bottom-up to align with git-commits 
 
 
+## add A navigation service and generate menu links from Routes
+ This is perhaps "overdoing it".
+ Move routes configuration to navigation service.
+ Extend Route with 'name' property to use the same list in app-routing.module.ts and menu (next step)
+
+
+```ts 
+//app-routing.module.ts now looks like this
+const routes: Routes = [  
+  ...getExamplesRoutes(), //exported in navigation.service.ts
+];
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+```
+
+```ts
+//navigation.service.ts
+export const examplesNavigationRouteLinks: NavigationRouteLinks = {
+  linksPath: 'examples',
+  defaultRoute: { path: '', redirectTo: 'examples', pathMatch: 'full' },
+  routes: [
+    {
+      name: '', //must be empty to not be added to links in getLinks
+      path: 'examples', component: ExamplesPageComponent, children: [
+        {
+          name: 'button toggle (all)',
+          path: 'button-toggle-all',
+          component: ButtonToggleExamplesPageComponent
+        },
+```
+
+
 ## add extended example of dynamic/generic Material button-toggle-template
 Using a mock service to provide the data needed to create our buttons
 

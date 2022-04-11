@@ -16,3 +16,8 @@ export interface IButtonToggleGroupData{
   name?: string;
   buttons: Array<IToggleGroupDataButton>;
 }
+
+export interface ILinkObjects{
+  name: string,
+  path: string
+}
