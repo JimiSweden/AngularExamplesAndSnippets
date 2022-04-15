@@ -14,6 +14,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav'
+import {MatTableModule} from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
 
 import { ButtonToggleTemplateExampleComponent } from './components/button-toggle-template-example/button-toggle-template-example.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -23,6 +25,12 @@ import { ButtonToggleDynamicTemplateImplementationExampleComponent } from './exa
 import { ButtonToggleDynamicTemplateImplementationExampleWithDataFromServiceComponent } from './examples/button-toggle-dynamic-template-implementation-example-with-data-from-service/button-toggle-dynamic-template-implementation-example-with-data-from-service.component';
 import { SideNavMatNavListComponent } from './components/navigation/side-nav-mat-nav-list/side-nav-mat-nav-list.component';
 import { ExamplesPageComponent } from './pages/examples-page/examples-page.component';
+import { TableWithCustomFilteringComponent } from './components/table/table-with-custom-filtering/table-with-custom-filtering.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ShortenPipe } from './shared/shorten.pipe';
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +41,9 @@ import { ExamplesPageComponent } from './pages/examples-page/examples-page.compo
     ButtonToggleDynamicTemplateImplementationExampleComponent,
     ButtonToggleDynamicTemplateImplementationExampleWithDataFromServiceComponent,
     ExamplesPageComponent,
-    SideNavMatNavListComponent
+    SideNavMatNavListComponent,
+    TableWithCustomFilteringComponent,
+    ShortenPipe
   ],
   imports: [
     BrowserModule,
@@ -41,8 +51,14 @@ import { ExamplesPageComponent } from './pages/examples-page/examples-page.compo
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatSelectModule,
+    MatInputModule,
     MatIconModule,
     MatButtonModule,
     MatButtonToggleModule,

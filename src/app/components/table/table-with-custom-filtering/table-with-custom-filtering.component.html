@@ -1,0 +1,262 @@
+<div>
+  <ng-template #filterButtonsStepper let-control="control">
+
+    <!-- for some reason, I had to add ngDefaultControl here, not in other examples. -->
+    <button mat-icon-button [formControl]="control" ngDefaultControl
+      (click)="filterButtonsStepperAdvance(control)">
+      <mat-icon class="green" *ngIf="control.value == 'true'">
+        check_circle_outline
+      </mat-icon>
+      <mat-icon class="red" *ngIf="control.value == 'false'">
+        unpublished
+      </mat-icon>
+      <mat-icon *ngIf="!control.value">
+        filter_alt
+        <!-- radio_button_unchecked -->
+      </mat-icon>
+    </button>
+  </ng-template>
+
+  <!-- todo: component for this 'DropDownTemplate', taking input 'data' as defined class/interface-->
+  <ng-template #dropDownFilter let-data="data">
+    <mat-form-field appearance="standard">
+      <mat-label *ngIf="data.selectedValue?.length">{{data.label}}</mat-label>
+      <mat-select [(value)]="data.selectedValue"
+        [placeholder]="data.placeholder"
+        [formControl]="data.control">
+        <mat-option value="">All</mat-option>
+        <mat-option *ngFor="let option of data.selectOptions" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </ng-template>
+
+   <!-- todo: component for this 'stringTemplate', taking input 'data' as defined class/interface-->
+  <ng-template #stringFilter let-data="data">
+    <mat-form-field appearance="standard">
+      <mat-label *ngIf="data.control.value?.length">{{data.label}}</mat-label>
+      <input matInput [placeholder]="data.placeholder"
+        [formControl]="data.control"
+        name="name-filter" />
+      <button mat-button *ngIf="data.control.value"
+      class="clear-search-filter-button-alignment"
+      matSuffix mat-icon-button aria-label="Clear"
+      (click)="data.control.setValue('')">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </mat-form-field>
+  </ng-template>
+
+
+  <!-- Content below : Templates above -->
+
+  <mat-card>
+    <mat-card-title>
+      Material Table with custom filtering, sorting, expandable rows, extra header row
+    </mat-card-title>
+    <mat-card-subtitle>
+      <pre>
+    - expandable rows (an extra conditional details-row
+    - - displayed when clicking on a row)
+    - extra header row (to display filters below default headers)
+    - - possible to hide with slide-toggle
+
+    - filterPredicate example with
+    - - button with 'multiple'-states for filtering on boolean (true/false) values (see Available for Booking).
+    - - search field for filtering on all string values.
+    - - search field for filtering on single columns (see Name and Description).
+    - - drop-down/select for filtering on single columns (see Risk level).
+
+    - sorting with custom values (i.e props)
+    - - sorting on objects requires overriding the sortingDataAccessor
+
+    read https://material.angular.io/components/table/overview for more on mat-table
+    read https://material.angular.io/components/sort/overview for more on matSort and mat-sort-header
+  </pre>
+  </mat-card-subtitle>
+
+  <mat-card-content>
+    <div name="filter-management" style="padding-bottom: 2rem; padding-left: 2rem;">
+      <mat-slide-toggle color="primary" name="toggle-display-filters-row"
+          style="padding-right: 2rem;"
+          [(ngModel)]="displayFiltersRow">
+          {{displayFiltersRow ? 'Hide filters row' : 'Show filters row'}}
+        </mat-slide-toggle>
+
+      <button color="warn" mat-raised-button aria-label="Clear all filters"
+      (click)="clearFilterControls()">
+        Clear all filters
+        <mat-icon>filter_alt_off</mat-icon>
+      </button>
+    </div>
+
+
+
+    <!-- NOTE:
+      matSortDisableClear removes the default "third" state 'not sorted'
+      (i.e. the user only get arrow up and down, not the blank)
+      this can be overridden per column by using disableClear="false" or vice versa depending on the tables default state; set by matSortDisableClear="[true || false]"
+      @example:
+      <table mat-table matSort matSortDisableClear
+      <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear="false">
+     -->
+    <div class="mat-elevation-z8">
+      <table mat-table
+        multiTemplateDataRows
+        matSort matSortDisableClear
+        [dataSource]="dataSource" style="width: 100%;">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Id</th>
+          <td mat-cell *matCellDef="let element">{{element.id}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Name</th>
+          <td mat-cell *matCellDef="let element">{{element.name}}</td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Description</th>
+          <td mat-cell *matCellDef="let element">{{element.description | shorten:40}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="availableForBooking">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Available for Booking
+          </th>
+          <td mat-cell class="center-content" *matCellDef="let element">
+            <!-- {{element.availableForBooking.available}} -->
+            <mat-icon class="green" *ngIf="element.availableForBooking.available">
+              check_circle_outline
+            </mat-icon>
+            <mat-icon class="red" *ngIf="!element.availableForBooking.available">
+              unpublished
+            </mat-icon>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="riskFactorLevel">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Risk level
+          </th>
+          <td mat-cell *matCellDef="let element">{{element.riskFactorLevel.value}}</td>
+        </ng-container>
+
+        <!-- Expanded Content Column (row)-
+          The detail row is made up of one column that spans across all columns -->
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+            <div class="item-detail" *ngIf="expandedElement == element">
+              <div class="item-description">
+                <span style="font-style: italic;"> Add some details here and perhaps an image or so... </span>
+
+                <div>Description: {{element.description}}</div>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+
+        <!-- these containers only have headers, to display filters below the default header : the filters could be placed in the default header and adjusted with some css but this makes the table more 'mat-table' standardized.
+          When adding sorting on a mat-header-cell you get special css and added content (up-down arrows), so separating the filters to its own row makes the layout more robust in case you have different content in different default headers-cells  -->
+        <ng-container matColumnDef="idFilter">
+          <th mat-header-cell *matHeaderCellDef>
+            <!-- Id filter works -->
+            <ng-template [ngTemplateOutlet]="stringFilter"
+            [ngTemplateOutletContext]="{ data:{
+            placeholder: 'Search',
+            control: filterFormControls.id
+          }}"></ng-template>
+          </th>
+        </ng-container>
+        <ng-container matColumnDef="availableForBookingFilter">
+          <th mat-header-cell *matHeaderCellDef class="center-content">
+
+            <!-- booking filter works -->
+            <ng-template [ngTemplateOutlet]="filterButtonsStepper"
+              [ngTemplateOutletContext]="{control: filterFormControls.availableForBooking}"></ng-template>
+          </th>
+        </ng-container>
+        <ng-container matColumnDef="nameFilter">
+          <th mat-header-cell *matHeaderCellDef>
+            <!-- name filter works -->
+            <ng-template [ngTemplateOutlet]="stringFilter"
+            [ngTemplateOutletContext]="{ data:{
+            label: 'Name : filtered',
+            placeholder: 'Search',
+            control: filterFormControls.name
+          }}"></ng-template>
+          </th>
+        </ng-container>
+        <ng-container matColumnDef="descriptionFilter">
+          <th mat-header-cell *matHeaderCellDef>
+            <!-- description filter works -->
+            <ng-template [ngTemplateOutlet]="stringFilter"
+            [ngTemplateOutletContext]="{ data:{
+            label: 'Description : filtered',
+            placeholder: 'Search',
+            control: filterFormControls.description
+          }}"></ng-template>
+          </th>
+        </ng-container>
+        <ng-container matColumnDef="riskFactorLevelFilter">
+          <th mat-header-cell *matHeaderCellDef>
+            <!-- risk factor filter works -->
+            <ng-template [ngTemplateOutlet]="dropDownFilter"
+              [ngTemplateOutletContext]="{ data:{
+              label: 'Risk level : filtered',
+              placeholder: 'Risk Level',
+              selectedValue: filterValues.riskFactorLevel,
+              control: filterFormControls.riskFactorLevel,
+              selectOptions: selectOptions.riskFactorLevels
+            }}"></ng-template>
+          </th>
+        </ng-container>
+
+
+        <!-- Table construction below , this is where the content is actually created -->
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <!-- This creates a second header row and is used to place filters inside
+          note that the matHeaderRowDef array needs other names than the ones displayed by default, i.e. from 'displayedColumns'
+          an example for creating the extra header row only on some columns (col-spand and row-span) is to be found here: https://stackoverflow.com/questions/55701270/how-colspan-and-row-span-added-to-material-table-header-angular-7
+
+          Note: on toggling show/hide the filter-row.
+          it is not possible to wrap the mat-header-row with a conditional container.
+          therefore this is handled with a conditional css-clas.
+          [class.display-filters-row]="!displayFiltersRow"
+        -->
+          <tr mat-header-row name="filters-columns"
+          class="filters-row"
+          [class.display-filters-row]="!displayFiltersRow"
+           *matHeaderRowDef="['idFilter', 'availableForBookingFilter', 'nameFilter', 'descriptionFilter', 'riskFactorLevelFilter' ]">
+          </tr>
+
+        <!-- This is the default rows created (one row per item/entry dataSource) -->
+        <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+          class="item-row"
+          [class.expanded-row]="expandedElement == element"
+          (click)="expandedElement = expandedElement == element ? null : element">
+        </tr>
+
+        <!-- details row : hidden by default,
+        @detailExpand animation (in the .ts file) "toggles" the hidden state
+        single column -->
+        <tr mat-row *matRowDef="let element; columns: ['expandedDetail']"
+          class="item-detail-row"
+          [class.hidden-row]="expandedElement != element"
+          [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+        </tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of sports-activities"></mat-paginator>
+    </div>
+
+  </mat-card-content>
+  </mat-card>
+</div>

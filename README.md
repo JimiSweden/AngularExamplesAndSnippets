@@ -12,6 +12,8 @@ See [README_Log](README_Log.md)
 [material icons docs](https://material.angular.io/components/icon/overview)
 [material icons list/search](https://fonts.google.com/icons?selected=Material+Icons)
 
+[TypeScript Utility types](https://www.typescriptlang.org/docs/handbook/utility-types.html)
+
 ## Versions
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.2.
 

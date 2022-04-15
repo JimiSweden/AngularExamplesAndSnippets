@@ -1,0 +1,122 @@
+.mat-column-id,
+.mat-column-name,
+.mat-column-description,
+.mat-column-availableForBooking,
+.mat-column-riskFactorLevel,
+.pad {
+  padding-right: 1rem;
+}
+
+.clear-search-filter-button-alignment{
+  top: 5px;
+  left: 15px;
+}
+.display-filters-row{
+  display: none;
+}
+
+.mat-column-id, .mat-column-idFilter {
+  max-width: 50px;
+  min-width: 50px;
+  width: 50px;
+  /* filter field*/
+  .mat-form-field {
+    max-width: 60px; /*needs som space for the label*/
+    min-width: 60px;
+    width: 60px;
+  }
+}
+
+.mat-column-name, .mat-column-nameFilter {
+  width: 200px;
+  max-width: 200px;
+  min-width: 200px;
+  .mat-form-field {
+    max-width: 200px;
+  }
+}
+
+.mat-column-description, .mat-column-descriptionFilter {
+  width: 250px;
+  max-width: 480px;
+  .mat-form-field {
+    max-width: 200px;
+  }
+}
+
+.mat-column-riskFactorLevel, .mat-column-riskFactorLevelFilter{
+  width: 200px;
+  max-width: 230px;
+}
+
+
+.mat-column-availableForBooking {
+  justify-content: center;
+  /*force icon space around*/
+
+  min-width: 48px;
+  // max-width: 48px;
+  max-width: 100px;
+  /* override mat-cell: last, breaks the "alignment" when price-columns are not displayed*/
+  // padding-right: 0
+  width: 100px;
+}
+
+/* push icons towards center of column ; aligning in center doesn't look good*/
+.mat-header-cell.center-content,
+.mat-cell.center-content .mat-icon{
+  // text-align: center;
+  padding-left: 1rem;
+
+  /* the header filter using icon-button needs to be 'pulled back' to align with icons*/
+  .mat-icon-button{
+    left: -0.5rem;
+  }
+}
+
+
+.mat-header-row.filters-row{
+  background: #efefef;
+}
+
+/* expanded row ... */
+
+.item-detail-row.hidden-row {
+  display: none;
+}
+
+.mat-cell {
+  overflow-wrap: anywhere;
+}
+
+.mat-row.item-row.expanded-row {
+  background: #efefef;
+}
+/*not that this has to be below 'expanded row' above to work properly */
+.mat-row.item-row:hover {
+  background: whitesmoke;
+}
+
+/*give the detail-row a highlight*/
+.mat-row.item-detail-row:not(.hidden-row) {
+  background: rgba($color: #0000ff, $alpha: 0.03);
+}
+
+.mat-row.item-row:active {
+  // .mat-row.item-row:not(.expanded-row):active {
+  background: #efefef;
+}
+
+/* remove border between the default row and the expanded row where details are displayed*/
+.item-row.expanded-row>.mat-cell {
+  border-bottom-width: 0;
+}
+
+.item-detail {
+  // overflow: hidden;
+  display: flex;
+}
+
+.item-description {
+  padding: 16px;
+}

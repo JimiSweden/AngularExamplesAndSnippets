@@ -6,6 +6,7 @@ import { ILinkObjects } from '../components/models/models';
 import { ButtonToggleDynamicTemplateImplementationExampleWithDataFromServiceComponent } from '../examples/button-toggle-dynamic-template-implementation-example-with-data-from-service/button-toggle-dynamic-template-implementation-example-with-data-from-service.component';
 import { ButtonToggleDynamicTemplateImplementationExampleComponent } from '../examples/button-toggle-dynamic-template-implementation-example/button-toggle-dynamic-template-implementation-example.component';
 import { ExamplesPageComponent } from '../pages/examples-page/examples-page.component';
+import { TableWithCustomFilteringComponent } from '../components/table/table-with-custom-filtering/table-with-custom-filtering.component';
 
 
 interface NamedRoute extends Route {
@@ -46,6 +47,13 @@ export const examplesNavigationRouteLinks: NavigationRouteLinks = {
           name: 'button toggle dynamic with service',
           path: 'button-toggle-dynamic-with-service',
           component: ButtonToggleDynamicTemplateImplementationExampleWithDataFromServiceComponent
+        },
+
+        //todo: nested menus?
+        {
+          name: 'table with custom filter',
+          path: 'table-with-custom-filtering',
+          component: TableWithCustomFilteringComponent
         },
         {
           name: '', //must be empty to not be added to links in getLinks

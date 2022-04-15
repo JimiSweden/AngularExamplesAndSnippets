@@ -6,6 +6,32 @@
 ## TODO: 
 - scroll på nav-list. som i https://material.angular.io/components 
 
+- läsa in .ts, .html, .css som markdown och presentera under varje komponent - med tabbar, liksom i material.angular.io 
+- - möjligt? markdown + länka? eller generera under build?
+
+
+## create inline edit version of the previous material table
+- allow user to see original values in details row. 
+- allow user to reset changes 
+- - individual cells 
+- - the whole row
+- - everything ('reload')
+
+## Done...
+
+## add material table with custom filtering, sorting, expandable rows, extra header row
+- expandable rows (an extra conditional details-row
+- - displayed when clicking on a row)
+- extra header row (to display filters below default headers)
+- - possible to hide with slide-toggle
+
+- filterPredicate example with
+- - button with 'multiple'-states for filtering on boolean (true/false) values.
+- - search field for filtering on all string values.
+- - search field for filtering on single columns.
+- - drop-down/select for filtering on single columns
+- sorting with custom values (i.e props) 
+- - sorting on objects requires overriding the sortingDataAccessor
 ## add navigation using mat-nav-list for examples
 
 adding a side menu to select what example to display the side-menu here is supposed to be reusable.
