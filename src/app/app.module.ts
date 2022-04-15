@@ -18,7 +18,7 @@ import {MatSidenavModule} from '@angular/material/sidenav'
 import { ButtonToggleTemplateExampleComponent } from './components/button-toggle-template-example/button-toggle-template-example.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonToggleDynamicTemplateComponent } from './components/button-toggle-dynamic-template/button-toggle-dynamic-template.component';
-import { ButtonToggleExamplesPageComponent } from './components/button-toggle-examples-page/button-toggle-examples-page.component';
+import { ButtonToggleExamplesPageComponent } from './pages/examples-page/button-toggle-examples-page/button-toggle-examples-page.component';
 import { ButtonToggleDynamicTemplateImplementationExampleComponent } from './examples/button-toggle-dynamic-template-implementation-example/button-toggle-dynamic-template-implementation-example.component';
 import { ButtonToggleDynamicTemplateImplementationExampleWithDataFromServiceComponent } from './examples/button-toggle-dynamic-template-implementation-example-with-data-from-service/button-toggle-dynamic-template-implementation-example-with-data-from-service.component';
 import { SideNavMatNavListComponent } from './components/navigation/side-nav-mat-nav-list/side-nav-mat-nav-list.component';

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router, Route } from '@angular/router';
-import { ButtonToggleExamplesPageComponent } from '../components/button-toggle-examples-page/button-toggle-examples-page.component';
+import { ButtonToggleExamplesPageComponent } from '../pages/examples-page/button-toggle-examples-page/button-toggle-examples-page.component';
 import { ButtonToggleTemplateExampleComponent } from '../components/button-toggle-template-example/button-toggle-template-example.component';
 import { ILinkObjects } from '../components/models/models';
 import { ButtonToggleDynamicTemplateImplementationExampleWithDataFromServiceComponent } from '../examples/button-toggle-dynamic-template-implementation-example-with-data-from-service/button-toggle-dynamic-template-implementation-example-with-data-from-service.component';
