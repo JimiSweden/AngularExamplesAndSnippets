@@ -19,6 +19,10 @@
 
 ## Done...
 
+## add github pages for this project
+https://jimisweden.github.io/AngularExamplesAndSnippets
+> See [README](README.md) for "how to" add github pages with gh-pages
+
 ## add material table with custom filtering, sorting, expandable rows, extra header row
 - expandable rows (an extra conditional details-row
 - - displayed when clicking on a row)
