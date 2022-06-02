@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="Lager_1"
+   viewBox="0 0 34.92 34.92"
+   version="1.1"
+   sodipodi:docname="TM_tom_ring.svg"
+   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview28"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="29.410082"
+     inkscape:cx="17.477"
+     inkscape:cy="17.494001"
+     inkscape:window-width="1660"
+     inkscape:window-height="1259"
+     inkscape:window-x="4764"
+     inkscape:window-y="306"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="Lager_1" />
+  <defs
+     id="defs21">
+    <style
+       id="style2">.cls-1{fill:url(#Namnlös_övertoning_511);}.cls-2{fill:#fff;stroke:#002b49;stroke-miterlimit:10;stroke-width:1.8px;}</style>
+    <linearGradient
+       id="Namnlös_övertoning_511"
+       x1="9.63"
+       y1="17.46"
+       x2="25.29"
+       y2="17.46"
+       gradientTransform="matrix(1, 0, 0, 1, 0, 0)"
+       gradientUnits="userSpaceOnUse">
+      <stop
+         offset=".07"
+         stop-color="#7c7c7b"
+         id="stop4" />
+      <stop
+         offset=".4"
+         stop-color="#7f7d7d"
+         id="stop6" />
+      <stop
+         offset=".44"
+         stop-color="#878585"
+         id="stop8" />
+      <stop
+         offset=".49"
+         stop-color="#9d9c9c"
+         id="stop10" />
+      <stop
+         offset=".55"
+         stop-color="#c1c0c1"
+         id="stop12" />
+      <stop
+         offset=".61"
+         stop-color="#e9e9ea"
+         id="stop14" />
+      <stop
+         offset=".79"
+         stop-color="#b7b6b6"
+         id="stop16" />
+      <stop
+         offset="1"
+         stop-color="#5c5d5c"
+         id="stop18" />
+    </linearGradient>
+  </defs>
+  <circle
+     class="cls-2"
+     cx="17.46"
+     cy="17.46"
+     r="16.56"
+     id="circle23" />
+</svg>

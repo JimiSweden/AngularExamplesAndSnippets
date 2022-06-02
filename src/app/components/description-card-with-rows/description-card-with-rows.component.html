@@ -1,0 +1,32 @@
+<div class="description-container">
+
+  <div class="header">
+    <div class="header-img-container">
+      <img *ngIf="headerImagePath" [src]="headerImagePath">
+      <div *ngIf="!headerImagePath" class="header-icon-container">
+        <img src="../assets/images/Blue_ring_white_content.svg">
+        <mat-icon *ngIf="headerIconName">{{headerIconName}}</mat-icon>
+      </div>
+      <!-- <div *ngIf="!headerIconName && !headerImagePath" class="img-placeholder"></div> -->
+    </div>
+
+    <div class="title">
+      {{title}}
+    </div>
+  </div>
+
+  <div class="description-rows">
+    <div *ngFor="let textRow of texts">
+      <!-- <ng-template #textNotVisible>
+        <div class="row-text"></div>
+      </ng-template>
+      <ng-container *ngIf="texts[textNameProp].title?[title]; else textNotVisible" > -->
+      <div class="row-icon">
+        <mat-icon *ngIf="textRow.icon" style="width: 18px;">{{textRow.icon}}</mat-icon>
+      </div>
+      <div class="row-text" [innerHtml]="textRow.text">
+      </div>
+    <!-- </ng-container> -->
+    </div>
+  </div>
+</div>

@@ -212,10 +212,6 @@ export class TableWithCustomFilteringComponent implements OnInit, OnDestroy, Aft
   }
 
   /** subscribe to Value changes on filters
-   * TODO: refactor and have factory method to create each of the subscriptions using props
-   * filterFormControls['name']
-   * filterFormControls.subscriptions['name']
-   * filterValues['name']
    */
   private subscribeToFilterControls() {
     this.filterFormControls.subscriptionAvailableForBooking = this.filterFormControls.availableForBooking.valueChanges
@@ -258,32 +254,3 @@ export class TableWithCustomFilteringComponent implements OnInit, OnDestroy, Aft
       );
   }
 }
-
-/**
- * from  https://material.angular.io/components/table/examples
- * Adding and removing data when using an observable-based data source.
- * @example
- * addData() {
-   const randomElementIndex = Math.floor(Math.random() * ELEMENT_DATA.length);
-   this.dataToDisplay = [...this.dataToDisplay, ELEMENT_DATA[randomElementIndex]];
-   this.dataSource.setData(this.dataToDisplay);
-  }
- */
-// class ObservableDataSource extends DataSource<ISportActivity> {
-//   private _dataStream = new ReplaySubject<ISportActivity[]>();
-
-//   constructor(initialData: ISportActivity[]) {
-//     super();
-//     this.setData(initialData);
-//   }
-
-//   connect(): Observable<ISportActivity[]> {
-//     return this._dataStream;
-//   }
-
-//   disconnect() {}
-
-//   setData(data: ISportActivity[]) {
-//     this._dataStream.next(data);
-//   }
-// }

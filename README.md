@@ -11,8 +11,10 @@ _note: it is published with sourceMaps in case you want to debug the typescript 
 See [README_Log](README_Log.md)
 
 ## links to useful references
-[material icons docs](https://material.angular.io/components/icon/overview)
-[material icons list/search](https://fonts.google.com/icons?selected=Material+Icons)
+[material icons docs](https://material.angular.io/components/icon/overview) -> [material icons list/search](https://fonts.google.com/icons?selected=Material+Icons)
+
+[Code Generation](https://material.angular.io/guide/schematics) ```ng generate @angular/material:table <component-name>```
+_Angular Material comes packaged with Angular CLI schematics to make creating Material applications easier._ 
 
 [TypeScript Utility types](https://www.typescriptlang.org/docs/handbook/utility-types.html)
 

@@ -8,6 +8,7 @@ export interface ISportsActivity {
   description: string;
   availableForBooking: BookingStatus;
   riskFactorLevel: RiskFactorLevel;
+  iconName?: string;
 }
 
 
@@ -23,7 +24,8 @@ export class SportsActivity implements ISportsActivity {
     public name: string,
     public description: string,
     public availableForBooking: BookingStatus,
-    public riskFactorLevel: RiskFactorLevel
+    public riskFactorLevel: RiskFactorLevel,
+    public iconName?: string,
   ) {
 
   }

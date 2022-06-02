@@ -1,0 +1,122 @@
+
+/* for coloring rows */
+$greyish-blue-color: rgba(#01529e, 0.05);
+
+/*dark blue*/
+$primary-color: #112C45;
+
+/*lighter blueish grey */
+$borders-color: #b3bcc8;
+
+/*to scale content and font size */
+$scaling: 0.8;
+
+$headerImageMarginTop: -59px *$scaling;
+$headerImageSize: 92px *$scaling;
+
+.description-container {
+
+  max-width: 550px *$scaling;
+
+  /*nullify the image margin, to not bleed into outer component*/
+  margin-top: $headerImageMarginTop *-1;
+}
+
+.header {
+  background-color: $primary-color;
+  height: 100px * $scaling;
+  /* space before rows */
+  margin-bottom: 5px;
+  /* left spacing between columns */
+  border-left: 2px solid white;
+
+  .header-img-container {
+    text-align: center;
+  }
+
+  img {
+    width: 92px *$scaling;
+    text-align: center;
+    margin-top: $headerImageMarginTop;
+    padding-bottom: 11px *$scaling;
+  }
+
+  .header-icon-container{
+    mat-icon {
+      position: absolute;
+      z-index: 50;
+      color: $primary-color;
+      width: $headerImageSize;
+      // text-align: center;
+      padding-bottom: 11px *$scaling;
+
+      /*middle of circle */
+      margin-top: $headerImageMarginTop /2;
+      margin-left: -($headerImageSize);
+    }
+  }
+  // .img-placeholder{
+
+  // }
+
+  .title {
+
+    color: white;
+    font-size: 2rem *$scaling;
+    font-weight: 400;
+    text-transform: uppercase;
+    text-align: center;
+  }
+}
+
+
+
+
+.description-rows>div {
+  border: 1px solid $borders-color;
+  border-top: none;
+
+  height: 3.6rem *$scaling;
+  /*make space for text to borders */
+  padding-top: 3px;
+  padding-bottom: 3px;
+
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+
+  font-size: 1rem *$scaling;
+  font-weight: 400;
+  color: $primary-color;
+}
+
+.description-rows>div:nth-child(odd) {
+  background-color: $greyish-blue-color
+}
+
+.description-rows>div:hover {
+  background-color: $primary-color;
+  color: white;
+}
+
+.row-icon {
+
+  width: 50px *$scaling;
+  text-align: center;
+  /*vertical align flexbox*/
+  align-self: center;
+
+  mat-icon {
+    font-weight: 900;
+    font-style: normal;
+    font-size: 1.6rem *$scaling;
+  }
+}
+
+.row-text {
+
+  padding-left: 8px *$scaling;
+  width: 100%;
+  /*vertical align flexbox*/
+  align-self: center;
+}

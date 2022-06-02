@@ -7,15 +7,15 @@
 - scroll på nav-list. som i https://material.angular.io/components 
 
 - läsa in .ts, .html, .css som markdown och presentera under varje komponent - med tabbar, liksom i material.angular.io 
-- - möjligt? markdown + länka? eller generera under build?
+  - möjligt? markdown + länka? eller generera under build? include, import, ...
 
 
-## create inline edit version of the previous material table
-- allow user to see original values in details row. 
-- allow user to reset changes 
-- - individual cells 
-- - the whole row
-- - everything ('reload')
+## ~~create inline edit version of the previous material table~~
+- ~~allow user to see original values in details row.~~ 
+  - ~~allow user to reset changes~~ 
+  - ~~individual cells~~ 
+  - ~~the whole row~~
+  - ~~everything ('reload')~~
 
 ## Done...
 

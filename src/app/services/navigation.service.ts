@@ -7,6 +7,7 @@ import { ButtonToggleDynamicTemplateImplementationExampleWithDataFromServiceComp
 import { ButtonToggleDynamicTemplateImplementationExampleComponent } from '../examples/button-toggle-dynamic-template-implementation-example/button-toggle-dynamic-template-implementation-example.component';
 import { ExamplesPageComponent } from '../pages/examples-page/examples-page.component';
 import { TableWithCustomFilteringComponent } from '../components/table/table-with-custom-filtering/table-with-custom-filtering.component';
+import { CardsWithRowsAsFluidTableComponent } from '../examples/cards-with-rows-as-fluid-table/cards-with-rows-as-fluid-table.component';
 
 
 interface NamedRoute extends Route {
@@ -55,6 +56,12 @@ export const examplesNavigationRouteLinks: NavigationRouteLinks = {
           path: 'table-with-custom-filtering',
           component: TableWithCustomFilteringComponent
         },
+        {
+          name: 'cards with table style rows',
+          path: 'cards-with-rows-as-fluid-table',
+          component: CardsWithRowsAsFluidTableComponent
+        },
+
         {
           name: '', //must be empty to not be added to links in getLinks
           path: '**', redirectTo: 'button-toggle-all'
