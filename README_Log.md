@@ -4,6 +4,9 @@
 
 
 ## TODO: 
+### Tracking changes in your objects, f ex in a material table with inline editing
+
+### 
 - scroll på nav-list. som i https://material.angular.io/components 
 
 - läsa in .ts, .html, .css som markdown och presentera under varje komponent - med tabbar, liksom i material.angular.io 
