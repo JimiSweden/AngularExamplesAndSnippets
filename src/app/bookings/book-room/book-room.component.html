@@ -1,0 +1,59 @@
+<p>book-room works!</p>
+<mat-card>
+  <mat-card-content>
+    <h2>Book a room</h2>
+    <form [formGroup]="bookingForm" (ngSubmit)="bookRoom()">
+      <mat-form-field>
+        <mat-label>Check-in Date</mat-label>
+        <input matInput [matDatepicker]="checkIn" formControlName="checkInDate">
+        <mat-datepicker-toggle matSuffix [for]="checkIn"></mat-datepicker-toggle>
+        <mat-datepicker #checkIn></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Check-out Date</mat-label>
+        <input matInput [matDatepicker]="checkOut" formControlName="checkOutDate">
+        <mat-datepicker-toggle matSuffix [for]="checkOut"></mat-datepicker-toggle>
+        <mat-datepicker #checkOut></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Room Type</mat-label>
+        <mat-select formControlName="roomType" (selectionChange)="roomTypeFilterOnSelected($event.value)">
+          <mat-option *ngFor="let roomType of roomTypes" [value]="roomType">
+            {{roomType}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Room To Book</mat-label>
+        <mat-select formControlName="room" (selectionChange)="onRoomSelected($event.value)">
+          <mat-option *ngFor="let room of filteredAvailableRooms" [value]="room">
+            {{room.roomType}} {{room.price}}{{room.currency}} nr:{{room.roomNumber}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <!-- <mat-form-field>
+        <mat-label>Number of Guests</mat-label>
+        <input matInput type="number" formControlName="numberOfGuests">
+      </mat-form-field> -->
+
+      <!-- <mat-form-field>
+        <mat-label>Price</mat-label>
+        <input matInput [disabled]="true" type="string" formControlName="bookingPrice">
+      </mat-form-field> -->
+
+      <!-- <mat-form-field>
+        <mat-label>Select Currency</mat-label>
+        <mat-select formControlName="currency">
+          <mat-option *ngFor="let currency of availableCurrencies" [value]="currency">
+            {{currency}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field> -->
+
+      <button mat-raised-button color="primary" type="submit">Book Room</button>
+    </form>
+  </mat-card-content>
+</mat-card>
+<!-- TODO: add room images in slider/trombone
+display Price etc...
+-->

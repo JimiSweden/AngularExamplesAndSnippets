@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators'
 
+import { v4 as uuidv4 } from 'uuid';
 
 // class BookingCommands {
 //   changeBooking = ChangeBooking;
@@ -76,20 +77,69 @@ interface Booking{
   bookingId:string;
   checkInDate: Date;
   checkOutDate: Date;
-  bookingPrice: number;
+  price: number;
 }
 export interface MyBookings {
   bookings: Array<Booking>;
 }
 
+/**dates as iso strings */
+export class BookRoomCommand{
+  constructor(
+    public guestId: string,
+    public roomId: string,
+    public checkInDate: Date,
+    public checkOutDate: Date,
+    public bookingPrice :number,
+    public prepaidAmount: number,
+    public currency: string,
+
+  ){
+    let date = new Date();
+    this.bookingDate = date;
+    this.bookingId = uuidv4();
+    // this.bookingId = date.toISOString().replace(' ','') + '-' + guestId;
+
+
+  }
+
+  // public bookingDate: string;
+  public bookingDate: Date;
+  public bookingId: string;
+  // bookingId: string;
+  // guestId: string;
+  // roomId: string;
+  // checkInDate: Date;
+  // checkOutDate: Date;
+  // bookingPrice :number
+  // prepaidAmount: number;
+  // currency: string;
+  // bookingDate: Date;
+}
 
 @Injectable({providedIn: 'root'})
 export class BookingsService {
+
+  getCurrentUserId() : string {
+    return "jimi@lee";
+  }
+
   baseUrl = 'https://localhost:44352/';
   // baseUrl = 'http://localhost:51218/';
+  queryApiBookings = 'bookings';
+commandApiBooking = 'booking';
 
   constructor(private http: HttpClient) { }
 
+  bookRoom(value: BookRoomCommand) {
+    let url = this.baseUrl + this.commandApiBooking +'/book';
+
+
+
+    return this.http.post(url, value,
+      { observe: 'body', responseType: 'json'   }
+    );
+  }
 
   getMyBookings(id:string): Observable <MyBookings> {
 
@@ -98,7 +148,8 @@ export class BookingsService {
       { observe: 'body', responseType: 'json'   }
       );
   }
-getBooking(id:string): Observable <BookingBooked> {
+
+  getBooking(id:string): Observable <BookingBooked> {
 
   let url = this.baseUrl + 'bookings/' + id;
   return this.http.get<BookingBooked>(url,
@@ -114,9 +165,11 @@ getBookingResponse(id:string): Observable < HttpResponse < BookingBooked >> {
     );
 }
 
+options2 = { observe: 'body', responseType: 'json'   };
+
 options = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' }) ,
-  observe: 'response',
+  // headers: new HttpHeaders({ 'Content-Type': 'application/json' }) ,
+  observe: 'body',
   responseType: 'json'
 };
   /* https://angular.io/guide/http

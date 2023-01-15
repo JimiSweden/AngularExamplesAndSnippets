@@ -16,6 +16,11 @@ import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav'
 import {MatTableModule} from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
+//todo? replace native with moment?
+// import { MatMomentDateModule } from '@angular/material-moment-adapter';
 
 import { ButtonToggleTemplateExampleComponent } from './components/button-toggle-template-example/button-toggle-template-example.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -35,6 +40,10 @@ import { DescriptionCardWithRowsComponent } from './components/description-card-
 import { CardsWithRowsAsFluidTableComponent } from './examples/cards-with-rows-as-fluid-table/cards-with-rows-as-fluid-table.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BookingsPageComponent } from './bookings/bookingspage/bookingspage.component';
+import { BookRoomComponent } from './bookings/book-room/book-room.component';
+import { BookedRoomChangeComponent } from './bookings/booked-room-change/booked-room-change.component';
+import { MyBookingsComponent } from './bookings/my-bookings/my-bookings.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +59,10 @@ import { BookingsPageComponent } from './bookings/bookingspage/bookingspage.comp
     ShortenPipe,
     DescriptionCardWithRowsComponent,
     CardsWithRowsAsFluidTableComponent,
-    BookingsPageComponent
+    BookingsPageComponent,
+    BookRoomComponent,
+    BookedRoomChangeComponent,
+    MyBookingsComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +85,10 @@ import { BookingsPageComponent } from './bookings/bookingspage/bookingspage.comp
     MatSlideToggleModule,
     MatCardModule,
     MatListModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+    // MatMomentDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]
