@@ -33,6 +33,8 @@ import { ShortenPipe } from './shared/shorten.pipe';
 import { MatSelectModule } from '@angular/material/select';
 import { DescriptionCardWithRowsComponent } from './components/description-card-with-rows/description-card-with-rows.component';
 import { CardsWithRowsAsFluidTableComponent } from './examples/cards-with-rows-as-fluid-table/cards-with-rows-as-fluid-table.component';
+import { HttpClientModule } from '@angular/common/http';
+import { BookingsPageComponent } from './bookings/bookingspage/bookingspage.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,10 +49,12 @@ import { CardsWithRowsAsFluidTableComponent } from './examples/cards-with-rows-a
     TableWithCustomFilteringComponent,
     ShortenPipe,
     DescriptionCardWithRowsComponent,
-    CardsWithRowsAsFluidTableComponent
+    CardsWithRowsAsFluidTableComponent,
+    BookingsPageComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
