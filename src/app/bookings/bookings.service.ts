@@ -134,7 +134,7 @@ commandApiBooking = 'booking';
   bookRoom(value: BookRoomCommand) {
     let url = this.baseUrl + this.commandApiBooking +'/book';
 
-
+    console.log('bookRoomCommand:', value);
 
     return this.http.post(url, value,
       { observe: 'body', responseType: 'json'   }

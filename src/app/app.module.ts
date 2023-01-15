@@ -19,8 +19,11 @@ import { MatInputModule } from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
-//todo? replace native with moment?
-// import { MatMomentDateModule } from '@angular/material-moment-adapter';
+//replaces native date with moment - to be able to use locale and custom formats
+import * as _moment from 'moment';
+import 'moment/locale/sv';
+import {MatMomentDateModule} from '@angular/material-moment-adapter';
+import {MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
 import { ButtonToggleTemplateExampleComponent } from './components/button-toggle-template-example/button-toggle-template-example.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -43,6 +46,19 @@ import { BookingsPageComponent } from './bookings/bookingspage/bookingspage.comp
 import { BookRoomComponent } from './bookings/book-room/book-room.component';
 import { BookedRoomChangeComponent } from './bookings/booked-room-change/booked-room-change.component';
 import { MyBookingsComponent } from './bookings/my-bookings/my-bookings.component';
+
+//override default date adapter date formats
+export const MY_DATE_FORMATS = {
+  parse: {
+      dateInput: ['YYYY-MM-DD']
+  },
+  display: {
+      dateInput: 'YYYY-MM-DD',
+      monthYearLabel: 'MMM YYYY',
+      dateA11yLabel: 'LL',
+      monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @NgModule({
   declarations: [
@@ -87,10 +103,15 @@ import { MyBookingsComponent } from './bookings/my-bookings/my-bookings.componen
     MatListModule,
     MatSidenavModule,
     MatDatepickerModule,
-    MatNativeDateModule
-    // MatMomentDateModule
+    MatNativeDateModule,
+    MatMomentDateModule
   ],
-  providers: [],
+  providers: [
+    //override default date adapter date formats
+    {provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS},
+    //override default date adapter locale
+     {provide: MAT_DATE_LOCALE, useValue: 'sv-SE'},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

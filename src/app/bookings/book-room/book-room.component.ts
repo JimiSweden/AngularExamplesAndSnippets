@@ -1,6 +1,9 @@
 
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import * as moment from 'moment';
+
 import { BookingsService, BookRoomCommand } from '../bookings.service';
 
 export interface Room{
@@ -72,8 +75,9 @@ export class BookRoomComponent implements OnInit {
 
     let bookingCommand = new BookRoomCommand(currentGuestId,
       this.bookingForm.value.roomId,
-      this.bookingForm.value.checkInDate,
-      this.bookingForm.value.checkOutDate,
+      //dates are moment objects, convert to iso string
+      (this.bookingForm.value.checkInDate).toISOString(),
+      (this.bookingForm.value.checkOutDate).toISOString(),
       this.bookingForm.value.bookingPrice,
       prepaidAmount,
       this.bookingForm.value.currency,
