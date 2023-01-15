@@ -1,7 +1,7 @@
-<mat-card style="margin: 1rem;">
+<mat-card style="margin: 1rem; max-width: 500px;">
   <mat-card-content>
     <h2>Book a room</h2>
-    <form [formGroup]="bookingForm" (ngSubmit)="bookRoom()">
+    <form [formGroup]="bookingForm" (ngSubmit)="bookRoom()" id="formRefForSubmitOutsideOfForm">
 
       <mat-form-field style="display: none;">
         <!-- not used as for not -->
@@ -35,7 +35,8 @@
       <mat-form-field>
         <mat-label>Check-out Date</mat-label>
         <input matInput [min]="minDateCheckOut" [max]="maxDateCheckOut"
-        [matDatepicker]="checkOut" formControlName="checkOutDate">
+        [matDatepicker]="checkOut" formControlName="checkOutDate"
+        (dateChange)="onBookingDateChanged($event)">
         <mat-datepicker-toggle matSuffix [for]="checkOut"></mat-datepicker-toggle>
         <mat-datepicker #checkOut></mat-datepicker>
       </mat-form-field>
@@ -74,9 +75,16 @@
         </mat-select>
       </mat-form-field> -->
 
-      <button mat-raised-button color="primary" type="submit">Book Room</button>
+      <!-- <button mat-raised-button color="primary" type="submit" [disabled]="!bookingForm.valid">Book Room</button> -->
     </form>
   </mat-card-content>
+  <mat-card-actions [align]="'end'">
+    <button mat-raised-button color="primary" type="submit"
+    form="formRefForSubmitOutsideOfForm"
+    [disabled]="!bookingForm.valid"
+    >Book Room</button>
+
+  </mat-card-actions>
 </mat-card>
 <!-- TODO: add room images in slider/trombone
 display Price etc...
