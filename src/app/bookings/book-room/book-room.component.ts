@@ -39,9 +39,43 @@ export class BookRoomComponent implements OnInit {
 
   filteredAvailableRooms: Room[] = this.availableRooms;
 
+  minDateCheckIn!: moment.Moment;
+  maxDateCheckIn!: moment.Moment;
+  minDateCheckOut!: moment.Moment;
+  maxDateCheckOut!: moment.Moment;
+
   constructor(private bookingsService: BookingsService) { }
 
+  setMinMaxDates() {
+
+    //min today
+    this.minDateCheckIn = moment();
+    //max 2 years from now or day before checkout
+    this.maxDateCheckIn = this.bookingForm.value.checkOutDate ?
+    (this.bookingForm.value.checkOutDate as moment.Moment).add(-1, 'days')
+    : moment().add(2, 'years') ;
+
+    //min 1 day after checkin or tomorrow
+    this.minDateCheckOut = this.bookingForm.value.checkInDate ?
+    (this.bookingForm.value.checkInDate as moment.Moment).add(1, 'days')
+    : moment().add(1, 'days');
+
+    //max 30 days after checkin or 2 years from now
+    this.maxDateCheckOut = this.bookingForm.value.checkInDate ?
+    (this.bookingForm.value.checkInDate as moment.Moment).add(30, 'days')
+    : moment().add(2, 'years');
+  }
+
+  onBookingDateChanged(event: MatDatepickerInputEvent<Date>) {
+    this.setMinMaxDates();
+    //if checkin date is same or after  checkout date, clear checkout date
+    if (this.bookingForm.value.checkInDate >= this.bookingForm.value.checkOutDate) {
+      this.bookingForm.patchValue({ checkOutDate: null });
+    }
+  }
+
   ngOnInit() {
+
     this.bookingForm = new FormGroup({
       checkInDate: new FormControl('', Validators.required),
       checkOutDate: new FormControl('', Validators.required),
@@ -54,6 +88,9 @@ export class BookRoomComponent implements OnInit {
       currency: new FormControl('', Validators.required),
       // paymentMethod: new FormControl('', Validators.required),
     });
+
+    this.setMinMaxDates();
+
   }
 
   roomTypeFilterOnSelected(selectedRoomType: string) {

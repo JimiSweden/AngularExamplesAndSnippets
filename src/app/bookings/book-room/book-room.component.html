@@ -1,17 +1,20 @@
-<p>book-room works!</p>
-<mat-card>
+<mat-card style="margin: 1rem;">
   <mat-card-content>
     <h2>Book a room</h2>
     <form [formGroup]="bookingForm" (ngSubmit)="bookRoom()">
       <mat-form-field>
         <mat-label>Check-in Date</mat-label>
-        <input matInput [matDatepicker]="checkIn" formControlName="checkInDate">
+        <input matInput [min]="minDateCheckIn" [max]="maxDateCheckIn"
+        [matDatepicker]="checkIn" formControlName="checkInDate"
+        (dateChange)="onBookingDateChanged($event)">
+        <!-- (dateInput)="addEvent('input', $event)"  -->
         <mat-datepicker-toggle matSuffix [for]="checkIn"></mat-datepicker-toggle>
         <mat-datepicker #checkIn></mat-datepicker>
       </mat-form-field>
       <mat-form-field>
         <mat-label>Check-out Date</mat-label>
-        <input matInput [matDatepicker]="checkOut" formControlName="checkOutDate">
+        <input matInput [min]="minDateCheckOut" [max]="maxDateCheckOut"
+        [matDatepicker]="checkOut" formControlName="checkOutDate">
         <mat-datepicker-toggle matSuffix [for]="checkOut"></mat-datepicker-toggle>
         <mat-datepicker #checkOut></mat-datepicker>
       </mat-form-field>
