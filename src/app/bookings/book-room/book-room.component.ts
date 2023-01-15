@@ -122,6 +122,10 @@ export class BookRoomComponent implements OnInit {
     let currentGuestId = this.bookingsService.getCurrentUserId();
     let prepaidAmount = 0;
 
+    //TODO: bokningar sparas som dagen efter i store.. även med toDate som skickar korrekt UTC.
+    // med iso matchar datumet i store med datumet i command.
+    // men det blir inte lokal tid.
+    //se även till att spara klockslag för checkin och checkout.
     let bookingCommand = new BookRoomCommand(currentGuestId,
       this.bookingForm.value.roomId,
       //dates are moment objects, convert to iso string

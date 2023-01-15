@@ -1,4 +1,27 @@
-<p>my-bookings works!</p>
+
+<mat-card style="min-height: 400px; padding-left: 2rem; max-width: 700px; margin: 1rem;">
+  <mat-card-header>
+    <mat-card-title>My Current Bookings (and history) ({{myBookings.bookings.length}}) {{loadingStatus}}</mat-card-title>
+  </mat-card-header>
+    <mat-card-content>
+    <!-- <h1>My Current Bookings (and history) ({{myBookings.bookings.length}}) {{loadingStatus}}</h1> -->
+    <!-- <div style="min-height: 400px; padding-left: 2rem;"> -->
+      <div *ngFor="let booking of myBookings.bookings">
+        <div style="padding-top: 0.3rem; border-top: 2px;">
+          <b>bookingId: {{booking.bookingId}}</b>
+          | checkInDate: {{booking.checkInDate}}
+          - checkOutDate: {{booking.checkOutDate}}
+          |  bookingPrice: {{booking.price}}
+          <!-- roomNumber: {{booking.roomNumber}}
+        <br>
+        roomType: {{booking.roomType}}
+        <br> -->
+        </div>
+      </div>
+    <!-- </div> -->
+  </mat-card-content>
+</mat-card>
+<!--
 <h1>My Current Bookings (and history) ({{myBookings.bookings.length}}) {{loadingStatus}}</h1>
 
 <div style="min-height: 400px; padding-left: 2rem;">
@@ -8,10 +31,7 @@
       | checkInDate: {{booking.checkInDate}}
       - checkOutDate: {{booking.checkOutDate}}
       |  bookingPrice: {{booking.price}}
-      <!-- roomNumber: {{booking.roomNumber}}
-    <br>
-    roomType: {{booking.roomType}}
-    <br> -->
+
     </div>
   </div>
-</div>
+</div> -->
