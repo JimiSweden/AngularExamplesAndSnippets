@@ -56,17 +56,18 @@ export class BookRoomComponent implements OnInit {
     this.minDateCheckIn = moment();
     //max 2 years from now or day before checkout
     this.maxDateCheckIn = this.bookingForm.value.checkOutDate ?
-    (this.bookingForm.value.checkOutDate as moment.Moment).add(-1, 'days')
+    moment(this.bookingForm.value.checkOutDate).add(-1, 'days')
+    // (this.bookingForm.value.checkOutDate as moment.Moment).add(-1, 'days') //this will alter the checkOutDate
     : moment().add(2, 'years') ;
 
     //min 1 day after checkin or tomorrow
     this.minDateCheckOut = this.bookingForm.value.checkInDate ?
-    (this.bookingForm.value.checkInDate as moment.Moment).add(1, 'days')
+    moment(this.bookingForm.value.checkInDate).add(1, 'days')
     : moment().add(1, 'days');
 
     //max 30 days after checkin or 2 years from now
     this.maxDateCheckOut = this.bookingForm.value.checkInDate ?
-    (this.bookingForm.value.checkInDate as moment.Moment).add(30, 'days')
+    moment(this.bookingForm.value.checkInDate).add(30, 'days')
     : moment().add(2, 'years');
   }
 
