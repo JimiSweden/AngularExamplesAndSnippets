@@ -11,7 +11,11 @@
           otherwise background-color of 'active-link' is applied after focus is lost, i.e you clicked somewhere else
           if [routerLink]="link.path" is not set on the mat-list-item, all of the button is not clickable (and styling that with css is a pain)
         -->
-        <div routerLinkActive="active-link" *ngFor="let link of links" >
+        <!-- [ngStyle]="{'padding-left': link.path.includes('/') ? '1rem' : '' }"
+        adds padding for indentation TODO: fix... quick fix-->
+        <div routerLinkActive="active-link" *ngFor="let link of links"
+        [ngStyle]="{'padding-left': link.path.includes('/') ? '1rem' : '' }"
+        >
           <mat-list-item matLine [routerLink]="link.path">
             {{ link.name }}
           </mat-list-item>

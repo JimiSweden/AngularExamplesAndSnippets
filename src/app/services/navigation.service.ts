@@ -9,6 +9,7 @@ import { ExamplesPageComponent } from '../pages/examples-page/examples-page.comp
 import { TableWithCustomFilteringComponent } from '../components/table/table-with-custom-filtering/table-with-custom-filtering.component';
 import { CardsWithRowsAsFluidTableComponent } from '../examples/cards-with-rows-as-fluid-table/cards-with-rows-as-fluid-table.component';
 import { BookingsPageComponent } from '../bookings/bookingspage/bookingspage.component';
+import { BookRoomComponent } from '../bookings/book-room/book-room.component';
 
 
 interface NamedRoute extends Route {
@@ -27,6 +28,8 @@ export const examplesNavigationRouteLinks: NavigationRouteLinks = {
   linksPath: 'examples',
   defaultRoute: { path: '', redirectTo: 'examples', pathMatch: 'full' },
   routes: [
+
+    //examples...
     {
       name: '', //must be empty to not be added to links in getLinks
       path: 'examples', component: ExamplesPageComponent, children: [
@@ -62,7 +65,13 @@ export const examplesNavigationRouteLinks: NavigationRouteLinks = {
           path: 'cards-with-rows-as-fluid-table',
           component: CardsWithRowsAsFluidTableComponent
         },
-        { name: 'Bookings', path: 'bookings', component: BookingsPageComponent },
+
+        {
+          name: 'Bookings', path: 'bookings', component: BookingsPageComponent ,
+          children: [
+            { name: 'BookRoom', path: 'book', component: BookRoomComponent },
+          ]
+        },
         {
           name: '', //must be empty to not be added to links in getLinks
           path: '**', redirectTo: 'bookings'
@@ -138,12 +147,21 @@ export class NavigationService {
       examplesNavigationRouteLinks.routes.forEach(route => {
         routeLinks.push({ name: route.name ?? '', path: route.path ?? '' })
         if (route.children) {
+          //1st level children
           route.children.forEach(childRoute => {
             routeLinks.push({ name: childRoute.name ?? '', path: childRoute.path ?? '' })
+
+            //2nd level children
+            if (childRoute.children) {
+              childRoute.children.forEach(childRoute2 => {
+                routeLinks.push({ name: childRoute2.name ?? '', path: childRoute.path + '/'+ childRoute2.path ?? '' })
+              })
+            }
           })
         }
       });
 
+      console.log('routeLinks: ', routeLinks);
       //remove not named routes - they are not to be used as links
       return routeLinks.filter(x => x.name !== '');
     }

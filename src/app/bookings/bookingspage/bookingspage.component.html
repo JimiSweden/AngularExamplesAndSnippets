@@ -2,8 +2,10 @@
 <h1>Manage your bookings</h1>
 
 
-<book-room></book-room>
-
-<hr>
+<div style="display: flex; flex-wrap: wrap-reverse;">
 
 <my-bookings [myBookings]="myBookings"></my-bookings>
+<router-outlet></router-outlet>
+<!-- <book-room></book-room> -->
+</div>
+
