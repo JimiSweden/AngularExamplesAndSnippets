@@ -22,6 +22,10 @@ export interface Room{
 export class BookRoomComponent implements OnInit {
 
   bookingForm!: FormGroup;
+
+  //for test, not implemented in booking.
+  stayPeriod!: FormGroup;
+
   roomTypes: string[] = ['Single', 'Double', 'Family'];
   availableRooms: Array<Room> = [
     //add 10 rooms
@@ -87,6 +91,13 @@ export class BookRoomComponent implements OnInit {
       bookingPrice: new FormControl('', Validators.required),
       currency: new FormControl('', Validators.required),
       // paymentMethod: new FormControl('', Validators.required),
+    });
+
+    this.stayPeriod = new FormGroup({
+      start: new FormControl(),
+      end: new FormControl(),
+      // start: new FormControl('', Validators.required),
+      // end: new FormControl('', Validators.required),
     });
 
     this.setMinMaxDates();

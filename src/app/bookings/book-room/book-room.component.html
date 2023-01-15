@@ -2,6 +2,27 @@
   <mat-card-content>
     <h2>Book a room</h2>
     <form [formGroup]="bookingForm" (ngSubmit)="bookRoom()">
+
+      <mat-form-field style="display: none;">
+        <!-- not used as for not -->
+        <mat-label>Stay Period</mat-label>
+        <mat-date-range-input
+          [formGroup]="stayPeriod"
+          [rangePicker]="stayPeriodPicker"
+          >
+          <input matStartDate placeholder="From" formControlName="start">
+          <input matEndDate placeholder="To" formControlName="end">
+        </mat-date-range-input>
+        <mat-hint>YYYY-MM-DD – YYYY-MM-DD</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="stayPeriodPicker"></mat-datepicker-toggle>
+        <mat-date-range-picker #stayPeriodPicker>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button color="primary" matDatepickerApply>Confirm</button>
+          </mat-datepicker-actions>
+        </mat-date-range-picker>
+      </mat-form-field>
+
       <mat-form-field>
         <mat-label>Check-in Date</mat-label>
         <input matInput [min]="minDateCheckIn" [max]="maxDateCheckIn"
