@@ -1,10 +1,25 @@
 <mat-toolbar color="primary" class="wrap-auto-height">
+  <button mat-icon-button class="" aria-label="toggle menu"
+  (click)="toggleSideNav()">
+    <mat-icon>menu</mat-icon>
+  </button>
   <span>
-    Angular Examples and Snippets
+    Angular Examples and Snippets |
   </span>
+  <a mat-button class="" routerLink="/examples" aria-label="Examples">
+    Examples
+  </a>
+
+
+  <a mat-button class="" routerLink="/bookings" aria-label="Bookings">
+    Bookings
+    <mat-icon>book</mat-icon>
+  </a>
   <span class="flexible-spacer"></span>
 
   <div class="flex">
+
+
     <button mat-icon-button class="" aria-label="share with friends">
       <mat-icon>share</mat-icon>
     </button>

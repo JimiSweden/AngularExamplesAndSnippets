@@ -74,7 +74,7 @@ export const examplesNavigationRouteLinks: NavigationRouteLinks = {
         },
         {
           name: '', //must be empty to not be added to links in getLinks
-          path: '**', redirectTo: 'bookings'
+          path: '**', redirectTo: 'button-toggle-all'
         },
       ]
     }
