@@ -10,6 +10,7 @@ import { TableWithCustomFilteringComponent } from '../components/table/table-wit
 import { CardsWithRowsAsFluidTableComponent } from '../examples/cards-with-rows-as-fluid-table/cards-with-rows-as-fluid-table.component';
 import { BookingsPageComponent } from '../bookings/bookingspage/bookingspage.component';
 import { BookRoomComponent } from '../bookings/book-room/book-room.component';
+import { Subject } from 'rxjs';
 
 
 interface NamedRoute extends Route {
@@ -123,7 +124,14 @@ function cloneObjectWithoutGivenPropertyName(obj: any, propertyName: string) {
 })
 export class NavigationService {
 
+
   constructor(private router: Router) { }
+
+  sidenavToggled: Subject<boolean> = new Subject<boolean>();
+
+  toggleSideNav(){
+    this.sidenavToggled.next(true);
+  }
 
   getLinks(path: string): Array<ILinkObjects> {
 

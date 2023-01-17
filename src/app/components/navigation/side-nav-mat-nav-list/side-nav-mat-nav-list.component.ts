@@ -1,19 +1,23 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ILinkObjects } from '../../models/models';
 import { NavigationService } from '../../../services/navigation.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'side-nav-mat-nav-list',
   templateUrl: './side-nav-mat-nav-list.component.html',
   styleUrls: ['./side-nav-mat-nav-list.component.scss']
 })
-export class SideNavMatNavListComponent implements OnInit {
+export class SideNavMatNavListComponent implements OnInit, OnDestroy {
 
   /** you can provide links here or use 'linksPath' to fetch from navigationService */
   @Input() links! : Array<ILinkObjects>;
 
   /** the main path for the route, this is used to fetch links from navigationService */
   @Input() linksPath! : string;
+
+  sidenavOpenState: boolean = true;
+  sideNavToggleSubscription!: Subscription;
 
   constructor(private navigationService: NavigationService) { }
 
@@ -32,6 +36,20 @@ export class SideNavMatNavListComponent implements OnInit {
       }
 
     }
+
+
+
+    this.sideNavToggleSubscription = this.navigationService
+    .sidenavToggled.subscribe(
+      () => {
+        this.sidenavOpenState = !this.sidenavOpenState;
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    //unsubscribe when component is not in use.
+    this.sideNavToggleSubscription?.unsubscribe();
   }
 
 }

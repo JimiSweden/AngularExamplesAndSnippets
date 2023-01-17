@@ -4,7 +4,7 @@
 
 
 <mat-drawer-container class="side-menu-container">
-  <mat-drawer mode="side" opened>
+  <mat-drawer mode="side" [opened]="sidenavOpenState">
       <mat-nav-list>
         <!-- routerLinkActive must be on the parent of routerLink here
           to override background-color of .mat-list-item:focus (the light color when moving he pointer over the items)
