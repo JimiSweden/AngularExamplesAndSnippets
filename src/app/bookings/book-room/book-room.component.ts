@@ -1,54 +1,49 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import * as moment from 'moment';
+import { Subscription } from 'rxjs';
 
-import { BookingsService, BookRoomCommand } from '../bookings.service';
+import { BookingsService, BookRoomCommand, Room } from '../bookings.service';
 
-export interface Room{
-  roomNumber: string;
-  // roomId: string;
-  roomType: string;
-  price: number;
-  currency: string;
-}
 
 @Component({
   selector: 'book-room',
   templateUrl: './book-room.component.html',
   styleUrls: ['./book-room.component.scss']
 })
-export class BookRoomComponent implements OnInit {
+export class BookRoomComponent implements OnInit, OnDestroy {
 
-  bookingForm!: FormGroup;
+  bookingForm: FormGroup = new FormGroup({
+    checkInDate: new FormControl('', Validators.required),
+    checkOutDate: new FormControl('', Validators.required),
+    roomType: new FormControl(''), //only used for filtering
+    room: new FormControl('', Validators.required),
+
+    //set in onRoomSelected, not visible in form
+    //todo: remove
+    roomId: new FormControl('', Validators.required),
+    bookingPrice: new FormControl('', Validators.required),
+    currency: new FormControl('', Validators.required),
+    // paymentMethod: new FormControl('', Validators.required),
+  });
 
   //for test, not implemented in booking.
   stayPeriod!: FormGroup;
 
   roomTypes: string[] = ['Single', 'Double', 'Family'];
-  availableRooms: Array<Room> = [
-    //add 10 rooms
-    {roomNumber: "101", roomType: "Single", price: 1500, currency: "SEK"},
-    {roomNumber: "102", roomType: "Double", price: 2100, currency: "SEK"},
-    {roomNumber: "103", roomType: "Family", price: 2900, currency: "SEK"},
-    {roomNumber: "104", roomType: "Single", price: 1500, currency: "SEK"},
-    {roomNumber: "105", roomType: "Double", price: 2100, currency: "SEK"},
-    {roomNumber: "106", roomType: "Family", price: 2900, currency: "SEK"},
-    {roomNumber: "107", roomType: "Single", price: 1400, currency: "SEK"},
-    {roomNumber: "108", roomType: "Single", price: 1500, currency: "SEK"},
-    {roomNumber: "109", roomType: "Double", price: 2100, currency: "SEK"},
-    {roomNumber: "110", roomType: "Family", price: 2900, currency: "SEK"},
-  ];
-
-  filteredAvailableRooms: Room[] = this.availableRooms;
+  availableRooms: Array<Room> = [];
+  filteredAvailableRooms: Room[] = [];
 
   minDateCheckIn!: moment.Moment;
   maxDateCheckIn!: moment.Moment;
   minDateCheckOut!: moment.Moment;
   maxDateCheckOut!: moment.Moment;
+  bookRoomSubscription!: Subscription;
 
   constructor(private bookingsService: BookingsService) { }
+
 
   setMinMaxDates() {
 
@@ -56,19 +51,19 @@ export class BookRoomComponent implements OnInit {
     this.minDateCheckIn = moment();
     //max 2 years from now or day before checkout
     this.maxDateCheckIn = this.bookingForm.value.checkOutDate ?
-    moment(this.bookingForm.value.checkOutDate).add(-1, 'days')
-    // (this.bookingForm.value.checkOutDate as moment.Moment).add(-1, 'days') //this will alter the checkOutDate
-    : moment().add(2, 'years') ;
+      moment(this.bookingForm.value.checkOutDate).add(-1, 'days')
+      // (this.bookingForm.value.checkOutDate as moment.Moment).add(-1, 'days') //this will alter the checkOutDate
+      : moment().add(2, 'years');
 
     //min 1 day after checkin or tomorrow
     this.minDateCheckOut = this.bookingForm.value.checkInDate ?
-    moment(this.bookingForm.value.checkInDate).add(1, 'days')
-    : moment().add(1, 'days');
+      moment(this.bookingForm.value.checkInDate).add(1, 'days')
+      : moment().add(1, 'days');
 
     //max 30 days after checkin or 2 years from now
     this.maxDateCheckOut = this.bookingForm.value.checkInDate ?
-    moment(this.bookingForm.value.checkInDate).add(30, 'days')
-    : moment().add(2, 'years');
+      moment(this.bookingForm.value.checkInDate).add(30, 'days')
+      : moment().add(2, 'years');
   }
 
   onBookingDateChanged(event: MatDatepickerInputEvent<Date>) {
@@ -81,18 +76,8 @@ export class BookRoomComponent implements OnInit {
 
   ngOnInit() {
 
-    this.bookingForm = new FormGroup({
-      checkInDate: new FormControl('', Validators.required),
-      checkOutDate: new FormControl('', Validators.required),
-      roomType: new FormControl(''), //only used for filtering
-      room: new FormControl('', Validators.required),
-
-      //set in onRoomSelected, not visible in form
-      roomId: new FormControl('', Validators.required),
-      bookingPrice: new FormControl('', Validators.required),
-      currency: new FormControl('', Validators.required),
-      // paymentMethod: new FormControl('', Validators.required),
-    });
+    this.availableRooms = this.bookingsService.getAvailableRooms();
+    this.filteredAvailableRooms = this.availableRooms.slice();
 
     this.stayPeriod = new FormGroup({
       start: new FormControl(),
@@ -104,6 +89,7 @@ export class BookRoomComponent implements OnInit {
     this.setMinMaxDates();
 
   }
+
 
   roomTypeFilterOnSelected(selectedRoomType: string) {
     this.filteredAvailableRooms = this.availableRooms.filter(room => room.roomType === selectedRoomType);
@@ -122,24 +108,35 @@ export class BookRoomComponent implements OnInit {
     let currentGuestId = this.bookingsService.getCurrentUserId();
     let prepaidAmount = 0;
 
-    //TODO: bokningar sparas som dagen efter i store.. även med toDate som skickar korrekt UTC.
-    // med iso matchar datumet i store med datumet i command.
-    // men det blir inte lokal tid.
-    //se även till att spara klockslag för checkin och checkout.
+    //todo: ugly fix day + 1, fix...
+    let checkInDate = (this.bookingForm.value.checkInDate).add(1, 'days').toDate() as Date;
+    let checkOutDate =(this.bookingForm.value.checkOutDate).add(1, 'days').toDate() as Date;
+
+    let bookingPrice = this.bookingsService.calculatePrice(
+      this.bookingForm.value.room,
+      checkInDate,
+      checkOutDate
+      )
+
+    //TODO: se även till att spara klockslag för checkin och checkout.
     let bookingCommand = new BookRoomCommand(currentGuestId,
       this.bookingForm.value.roomId,
-      //dates are moment objects, convert to iso string
-      (this.bookingForm.value.checkInDate).toISOString(),
-      (this.bookingForm.value.checkOutDate).toISOString(),
-      this.bookingForm.value.bookingPrice,
+      //dates are moment objects, convert to string to make it compatible with backend
+      checkInDate,
+      checkOutDate,
+      bookingPrice,
       prepaidAmount,
       this.bookingForm.value.currency,
-      );
+    );
 
-    this.bookingsService.bookRoom(bookingCommand)
-    .subscribe({
-      next: (val: any) => { console.log(val, "room booking submitted") },
-      error: (err: any) => { console.error(err) },
-    })
+    this.bookRoomSubscription = this.bookingsService.bookRoom(bookingCommand)
+      .subscribe({
+        next: (val: any) => { console.log(val, "room booking submitted") },
+        error: (err: any) => { console.error(err) },
+      })
+  }
+
+  ngOnDestroy(): void {
+    this.bookRoomSubscription?.unsubscribe(); //todo: kanske inte behövs?
   }
 }

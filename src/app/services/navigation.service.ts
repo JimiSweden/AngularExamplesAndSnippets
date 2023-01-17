@@ -11,6 +11,7 @@ import { CardsWithRowsAsFluidTableComponent } from '../examples/cards-with-rows-
 import { BookingsPageComponent } from '../bookings/bookingspage/bookingspage.component';
 import { BookRoomComponent } from '../bookings/book-room/book-room.component';
 import { Subject } from 'rxjs';
+import { EditBookingComponent } from '../bookings/edit-booking/edit-booking.component';
 
 
 interface NamedRoute extends Route {
@@ -70,7 +71,9 @@ export const examplesNavigationRouteLinks: NavigationRouteLinks = {
         {
           name: 'Bookings', path: 'bookings', component: BookingsPageComponent ,
           children: [
-            { name: 'BookRoom', path: 'book', component: BookRoomComponent },
+            { name: 'Book Room', path: 'book', component: BookRoomComponent },
+            //empty name to not be added to links in getLinks
+            { name: '', path: 'change/:bookingId', component: EditBookingComponent },
           ]
         },
         {

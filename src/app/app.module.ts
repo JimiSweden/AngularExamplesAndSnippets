@@ -46,6 +46,7 @@ import { BookingsPageComponent } from './bookings/bookingspage/bookingspage.comp
 import { BookRoomComponent } from './bookings/book-room/book-room.component';
 import { BookedRoomChangeComponent } from './bookings/booked-room-change/booked-room-change.component';
 import { MyBookingsComponent } from './bookings/my-bookings/my-bookings.component';
+import { EditBookingComponent } from './bookings/edit-booking/edit-booking.component';
 
 //override default date adapter date formats
 export const MY_DATE_FORMATS = {
@@ -78,7 +79,8 @@ export const MY_DATE_FORMATS = {
     BookingsPageComponent,
     BookRoomComponent,
     BookedRoomChangeComponent,
-    MyBookingsComponent
+    MyBookingsComponent,
+    EditBookingComponent
   ],
   imports: [
     BrowserModule,

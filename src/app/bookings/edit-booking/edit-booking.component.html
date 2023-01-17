@@ -1,0 +1,64 @@
+<mat-card style="margin: 1rem; max-width: 500px;">
+  <mat-card-content>
+    <h2>Update Booking</h2>
+    <form [formGroup]="bookingForm" (ngSubmit)="updateBooking()"
+    id="formRefForSubmitOutsideOfForm"
+    (change)="onBookingFormChange()"
+    >
+
+
+      <mat-form-field>
+        <!-- not used as for not -->
+        <mat-label>Stay Period</mat-label>
+        <mat-date-range-input
+          formGroupName="stayPeriod"
+          [rangePicker]="stayPeriodPicker"
+          [min]="minDateCheckIn" [max]="maxDateCheckIn"
+          >
+          <input matStartDate placeholder="From" formControlName="checkInDate">
+          <input matEndDate placeholder="To" formControlName="checkOutDate">
+        </mat-date-range-input>
+        <mat-hint>YYYY-MM-DD – YYYY-MM-DD</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="stayPeriodPicker"></mat-datepicker-toggle>
+        <mat-date-range-picker #stayPeriodPicker>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button color="primary" matDatepickerApply>Confirm</button>
+          </mat-datepicker-actions>
+        </mat-date-range-picker>
+    </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Room Type</mat-label>
+        <mat-select formControlName="roomType" (selectionChange)="roomTypeFilterOnSelected($event.value)">
+          <mat-option *ngFor="let roomType of roomTypes" [value]="roomType">
+            {{roomType}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Room To Book</mat-label>
+        <mat-select formControlName="room"
+        [compareWith]="comparerRoomsSelection"
+        (selectionChange)="onRoomSelected($event.value)"
+        >
+          <mat-option *ngFor="let room of filteredAvailableRooms" [value]="room">
+            {{room.roomType}} {{room.price}}{{room.currency}} nr:{{room.roomNumber}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+        </form>
+
+  <div style="font-size: larger; font-weight: 600;">
+    Todo: currency + summa  <!-- Todo: currency + summa TODO -->
+    {{bookingPriceCurrentSelected}} {{bookingForm.value.currency}}
+  </div>
+      </mat-card-content>
+
+  <mat-card-actions [align]="'end'">
+    <button mat-raised-button color="primary" type="submit"
+    form="formRefForSubmitOutsideOfForm"
+    [disabled]="!bookingForm.valid"
+    >Update Booking</button>
+  </mat-card-actions>
+</mat-card>

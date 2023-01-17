@@ -9,7 +9,12 @@
       <div *ngFor="let booking of myBookings.bookings">
         <div style="padding-top: 0.3rem; border-top: 2px;">
           <b>bookingId: {{booking.bookingId}}</b>
-          | checkInDate: {{booking.checkInDate}}
+          <a mat-icon-button [routerLink]="['change', booking.bookingId]"
+          aria-label="Change booking">
+            <mat-icon>edit</mat-icon>
+          </a>
+
+            | checkInDate: {{booking.checkInDate}}
           - checkOutDate: {{booking.checkOutDate}}
           |  bookingPrice: {{booking.price}}
           <!-- roomNumber: {{booking.roomNumber}}
