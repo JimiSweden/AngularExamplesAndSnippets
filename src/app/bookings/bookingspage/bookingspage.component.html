@@ -1,11 +1,18 @@
-<p>bookingspage works!</p>
-<h1>Manage your bookings</h1>
+<mat-card>
+  <mat-card-content>
+    <h1>Manage your bookings</h1>
 
+    <div style="max-width: 730px; display: flex; justify-content: end;">
+      <button mat-raised-button color="primary" class="" routerLink="book" aria-label="Book room">
+        <mat-icon>add</mat-icon>
+        Book a room
+      </button>
+    </div>
 
-<div style="display: flex; flex-wrap: wrap-reverse;">
-
-<my-bookings [myBookings]="myBookings"></my-bookings>
-<router-outlet></router-outlet>
-<!-- <book-room></book-room> -->
-</div>
-
+    <div style="display: flex; flex-wrap: wrap-reverse;">
+      <my-bookings [myBookings]="myBookings"></my-bookings>
+      <router-outlet></router-outlet>
+      <!-- <book-room></book-room> -->
+    </div>
+  </mat-card-content>
+</mat-card>
