@@ -36,11 +36,15 @@ export class BookRoomComponent implements OnInit, OnDestroy {
   availableRooms: Array<Room> = [];
   filteredAvailableRooms: Room[] = [];
 
+  availableGuests: Array<string> = [];
+  selectedGuestId: string = '';
+
   minDateCheckIn!: moment.Moment;
   maxDateCheckIn!: moment.Moment;
   minDateCheckOut!: moment.Moment;
   maxDateCheckOut!: moment.Moment;
   bookRoomSubscription!: Subscription;
+  currentGuestChangedSubscription!: Subscription;
 
   constructor(private bookingsService: BookingsService) { }
 
@@ -74,10 +78,17 @@ export class BookRoomComponent implements OnInit, OnDestroy {
     }
   }
 
+  // [compareWith]="comparGuestSelection"
+  comparGuestSelection(object1: any, object2: any) {
+    return object1 && object2 && object1 == object2;
+  }
+
   ngOnInit() {
 
     this.availableRooms = this.bookingsService.getAvailableRooms();
     this.filteredAvailableRooms = this.availableRooms.slice();
+    this.availableGuests = this.bookingsService.getAvailableGuestIds();
+
 
     this.stayPeriod = new FormGroup({
       start: new FormControl(),
@@ -87,6 +98,19 @@ export class BookRoomComponent implements OnInit, OnDestroy {
     });
 
     this.setMinMaxDates();
+
+
+    this.currentGuestChangedSubscription = this.bookingsService
+    .currentGuestChangedSubject
+    .subscribe(
+      {
+        next: (guestId: string) => {
+          if(guestId !== this.selectedGuestId){
+            this.selectedGuestId = guestId;
+          }
+      }
+      }
+    );
 
   }
 
@@ -102,10 +126,15 @@ export class BookRoomComponent implements OnInit, OnDestroy {
     });
   }
 
+  onGuestSelected(selectedGuestId: string) {
+    // this.selectedGuestId = selectedGuestId;
+    this.bookingsService.currentGuestChanged(selectedGuestId);
+  }
+
   bookRoom() {
     console.log(this.bookingForm.value);
 
-    let currentGuestId = this.bookingsService.getCurrentUserId();
+
     let prepaidAmount = 0;
 
     //todo: ugly fix day + 1, fix...
@@ -119,7 +148,7 @@ export class BookRoomComponent implements OnInit, OnDestroy {
       )
 
     //TODO: se även till att spara klockslag för checkin och checkout.
-    let bookingCommand = new BookRoomCommand(currentGuestId,
+    let bookingCommand = new BookRoomCommand(this.selectedGuestId,
       this.bookingForm.value.roomId,
       //dates are moment objects, convert to string to make it compatible with backend
       checkInDate,
@@ -138,5 +167,7 @@ export class BookRoomComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.bookRoomSubscription?.unsubscribe(); //todo: kanske inte behövs?
+
+    this.currentGuestChangedSubscription?.unsubscribe();
   }
 }

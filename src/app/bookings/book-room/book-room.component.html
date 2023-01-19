@@ -1,6 +1,20 @@
 <mat-card style="margin: 1rem; max-width: 500px;">
   <mat-card-content>
     <h2>Book a room</h2>
+
+    <div>
+      <mat-form-field appearance="fill">
+      <mat-label>Guest</mat-label>
+      <mat-select [(value)]="selectedGuestId" (selectionChange)="onGuestSelected($event.value)"
+      [compareWith]="comparGuestSelection">
+      <!-- <mat-select (selectionChange)="onGuestSelected($event.value)"> -->
+        <mat-option *ngFor="let guest of availableGuests" [value]="guest">
+          {{guest}}
+        </mat-option>
+      </mat-select>
+      </mat-form-field>
+
+    </div>
     <form [formGroup]="bookingForm" (ngSubmit)="bookRoom()" id="formRefForSubmitOutsideOfForm">
 
       <mat-form-field style="display: none;">

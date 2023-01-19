@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { map, catchError } from 'rxjs/operators'
 
 import { v4 as uuidv4 } from 'uuid';
@@ -149,9 +149,21 @@ export interface Room {
 @Injectable({providedIn: 'root'})
 export class BookingsService {
 
+currentGuestChangedSubject: Subject<string> = new Subject<string>();
 
-  getCurrentUserId() : string {
-    return "jimi@lee";
+  currentGuestChanged(selectedGuestId: string) {
+    //invoke subscription
+    this.currentGuestChangedSubject.next(selectedGuestId);
+  }
+
+
+  getAvailableGuestIds() : Array<string> {
+    return [
+      "jimi@lee",
+      "guest1@lee",
+      "guest2@lee",
+      "guest3@lee",
+    ].slice();
   }
 
   getDays(checkInDate: Date, checkOutDate: Date): number {

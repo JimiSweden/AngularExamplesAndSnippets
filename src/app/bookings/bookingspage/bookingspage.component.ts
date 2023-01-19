@@ -10,10 +10,13 @@ import { BookingsService, MyBookings } from '../bookings.service';
 export class BookingsPageComponent implements OnInit, OnDestroy {
 
 
+  currentGuestChangedSubscription!: Subscription;
+
+
   constructor(private bookingsService: BookingsService) { }
 
 
-  guestId = "jimi@lee"; //todo: get from login
+  guestId!:string; // = "jimi@lee"; //todo: get from login
   public myBookings: MyBookings = { bookings: [] };
   public loadingStatus: string = "Loading...";
 
@@ -21,15 +24,24 @@ export class BookingsPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     //TODO ? move to my-bookings.component.ts
-    this.subscriptionMyBookings = this.bookingsService.getMyBookings(this.guestId)
-      .subscribe(
-        {
-          next: (val: MyBookings) => { this.onMyBookingsSuccess(val) },
-          error: (err: any) => { this.onMyBookingsError(err) },
-          //https://rxjs.dev/api/index/class/Subscriber
-          // complete: () => {console.log("Completed!")} //The complete callback of an Observer.
-        }
-      );
+
+    if(this.guestId){
+      this.loadMyBookings();
+    }
+
+      this.currentGuestChangedSubscription = this.bookingsService
+    .currentGuestChangedSubject
+    .subscribe(
+      {
+        next: (guestId: string) => {
+          if(guestId !== this.guestId){
+            this.guestId = guestId;
+          }
+
+          this.loadMyBookings();
+      }
+      }
+    );
 
       /** this style "works" as expected in updating the props and logging to console in
        * onMyBookingsSuccess. However, the template (UI) is not updated/rerendered.
@@ -42,6 +54,18 @@ export class BookingsPageComponent implements OnInit, OnDestroy {
       );
        */
 
+  }
+
+  loadMyBookings(){
+    this.subscriptionMyBookings = this.bookingsService.getMyBookings(this.guestId)
+      .subscribe(
+        {
+          next: (val: MyBookings) => { this.onMyBookingsSuccess(val) },
+          error: (err: any) => { this.onMyBookingsError(err) },
+          //https://rxjs.dev/api/index/class/Subscriber
+          // complete: () => {console.log("Completed!")} //The complete callback of an Observer.
+        }
+      );
   }
 
   onMyBookingsSuccess(myBookings: MyBookings) {
