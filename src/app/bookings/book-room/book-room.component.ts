@@ -36,8 +36,7 @@ export class BookRoomComponent implements OnInit, OnDestroy {
   availableRooms: Array<Room> = [];
   filteredAvailableRooms: Room[] = [];
 
-  availableGuests: Array<string> = [];
-  selectedGuestId: string = '';
+  currentGuestId: string = '';
 
   minDateCheckIn!: moment.Moment;
   maxDateCheckIn!: moment.Moment;
@@ -78,17 +77,15 @@ export class BookRoomComponent implements OnInit, OnDestroy {
     }
   }
 
-  // [compareWith]="comparGuestSelection"
-  comparGuestSelection(object1: any, object2: any) {
-    return object1 && object2 && object1 == object2;
-  }
 
   ngOnInit() {
 
     this.availableRooms = this.bookingsService.getAvailableRooms();
     this.filteredAvailableRooms = this.availableRooms.slice();
-    this.availableGuests = this.bookingsService.getAvailableGuestIds();
 
+    //if guest is already selected,get it; f ex when navigating between book and edit
+
+    this.currentGuestId = this.bookingsService.getCurrentGuestId();
 
     this.stayPeriod = new FormGroup({
       start: new FormControl(),
@@ -105,8 +102,8 @@ export class BookRoomComponent implements OnInit, OnDestroy {
     .subscribe(
       {
         next: (guestId: string) => {
-          if(guestId !== this.selectedGuestId){
-            this.selectedGuestId = guestId;
+          if(guestId !== this.currentGuestId){
+            this.currentGuestId = guestId;
           }
       }
       }
@@ -126,14 +123,17 @@ export class BookRoomComponent implements OnInit, OnDestroy {
     });
   }
 
-  onGuestSelected(selectedGuestId: string) {
-    // this.selectedGuestId = selectedGuestId;
-    this.bookingsService.currentGuestChanged(selectedGuestId);
-  }
+
 
   bookRoom() {
     console.log(this.bookingForm.value);
 
+    if (this.bookingForm.invalid) {
+      return;
+    }
+    if(!this.currentGuestId){
+      alert('Please select a guest ("login")');
+    }
 
     let prepaidAmount = 0;
 
@@ -148,7 +148,7 @@ export class BookRoomComponent implements OnInit, OnDestroy {
       )
 
     //TODO: se även till att spara klockslag för checkin och checkout.
-    let bookingCommand = new BookRoomCommand(this.selectedGuestId,
+    let bookingCommand = new BookRoomCommand(this.currentGuestId,
       this.bookingForm.value.roomId,
       //dates are moment objects, convert to string to make it compatible with backend
       checkInDate,

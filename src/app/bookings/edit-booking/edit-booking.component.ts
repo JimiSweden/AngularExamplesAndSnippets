@@ -67,8 +67,11 @@ export class EditBookingComponent implements OnInit, OnDestroy {
   paid!: boolean;
   payments: Payment[] = new Array<Payment>();
 
+  /** on load this is the price of the current booking;
+   * will change if room or dates are changed
+   *
+   */
   bookingPriceCurrentSelected: number = 0;
-  //subscribe to route params
 
   constructor(
     private bookingsService: BookingsService,
@@ -123,15 +126,14 @@ export class EditBookingComponent implements OnInit, OnDestroy {
     this.availableRooms = this.bookingsService.getAvailableRooms();
     this.filteredAvailableRooms = this.availableRooms.slice();
 
+    //subscribe to route params to get bookingId from url
     this.route.params.subscribe((params: Params) => {
       this.bookingId = params['bookingId'];
-      // this.editMode = params['id'] != null;
       this.loadBooking(this.bookingId);
     })
 
 
     this.setMinMaxDates();
-
   }
 
   loadBooking(bookingId: string) {
@@ -151,6 +153,7 @@ export class EditBookingComponent implements OnInit, OnDestroy {
     this.outstandingBalance = booking.outstanding;
     this.paid = booking.paid;
     this.payments = booking.payments;
+    this.bookingPriceCurrentSelected = booking.price.amount;
 
     this.selectedRoom = this.availableRooms.find(room => room.roomNumber === booking.roomId.value);
     // this.selectedRoom = {

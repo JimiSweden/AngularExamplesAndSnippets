@@ -12,21 +12,21 @@ import { v4 as uuidv4 } from 'uuid';
 //   bookRoom = BookRoom;
 // }
 interface BookRoom {
-   bookingId: string; guestId: string; roomId: string;
-   checkInDate: Date; checkOutDate: Date; bookingPrice: number;
-   prepaidAmount: number; currency: string;
-   bookingDate: Date;
+  bookingId: string; guestId: string; roomId: string;
+  checkInDate: Date; checkOutDate: Date; bookingPrice: number;
+  prepaidAmount: number; currency: string;
+  bookingDate: Date;
 }
 interface ChangeBooking {
 
-      bookingId: string;
-      roomId: string;
-      checkInDate: Date;
-      checkOutDate: Date;
-       bookingPrice: number;
-       prepaidAmount: number;
-        currency: string;
-        bookingDate: Date;
+  bookingId: string;
+  roomId: string;
+  checkInDate: Date;
+  checkOutDate: Date;
+  bookingPrice: number;
+  prepaidAmount: number;
+  currency: string;
+  bookingDate: Date;
 }
 
 interface RecordPayment {
@@ -60,9 +60,9 @@ export interface Money {
 export interface BookingState {
   bookingId: string;
   guestId: string;
-  roomId: {value: string};
+  roomId: { value: string };
   // stayPeriod: {
-//  todo: rename in backend
+  //  todo: rename in backend
   period: {
     checkIn: Date;
     checkOut: Date
@@ -77,8 +77,8 @@ export interface BookingState {
   payments: Array<Payment>;
 }
 
-export interface Booking{
-  bookingId:string;
+export interface Booking {
+  bookingId: string;
   checkInDate: Date;
   checkOutDate: Date;
   price: number;
@@ -96,7 +96,7 @@ export class ChangeBookingCommand {
     public bookingPrice: number,
     public prepaidAmount: number,
     public currency: string
-  ){
+  ) {
     this.bookingDate = new Date();
   }
   public bookingDate: Date;
@@ -104,17 +104,17 @@ export class ChangeBookingCommand {
 
 
 /**dates as iso strings */
-export class BookRoomCommand{
+export class BookRoomCommand {
   constructor(
     public guestId: string,
     public roomId: string,
     public checkInDate: Date,
     public checkOutDate: Date,
-    public bookingPrice :number,
+    public bookingPrice: number,
     public prepaidAmount: number,
     public currency: string,
 
-  ){
+  ) {
     let date = new Date();
     this.bookingDate = date;
     this.bookingId = uuidv4();
@@ -146,18 +146,25 @@ export interface Room {
 }
 
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class BookingsService {
 
-currentGuestChangedSubject: Subject<string> = new Subject<string>();
+
+  currentGuestChangedSubject: Subject<string> = new Subject<string>();
+  currentGuestId!: string;
 
   currentGuestChanged(selectedGuestId: string) {
+    this.currentGuestId = selectedGuestId;
     //invoke subscription
     this.currentGuestChangedSubject.next(selectedGuestId);
   }
 
+  getCurrentGuestId(): string {
+    return this.currentGuestId
+  }
 
-  getAvailableGuestIds() : Array<string> {
+
+  getAvailableGuestIds(): Array<string> {
     return [
       "jimi@lee",
       "guest1@lee",
@@ -180,68 +187,68 @@ currentGuestChangedSubject: Subject<string> = new Subject<string>();
   baseUrl = 'https://localhost:44352/';
   // baseUrl = 'http://localhost:51218/';
   queryApiBookings = 'bookings';
-commandApiBooking = 'booking';
+  commandApiBooking = 'booking';
 
   constructor(private http: HttpClient) { }
 
   bookRoom(command: BookRoomCommand) {
-    let url = this.baseUrl + this.commandApiBooking +'/book';
+    let url = this.baseUrl + this.commandApiBooking + '/book';
 
     console.log('bookRoomCommand:', command);
 
     return this.http.post(url, command,
-      { observe: 'body', responseType: 'json'   }
+      { observe: 'body', responseType: 'json' }
     );
   }
 
-   changeBooking(command: ChangeBookingCommand) {
-let url = this.baseUrl + this.commandApiBooking +'/change';
+  changeBooking(command: ChangeBookingCommand) {
+    let url = this.baseUrl + this.commandApiBooking + '/change';
 
     console.log('changeBookingCommand:', command);
 
 
     return this.http.post(url, command,
-      { observe: 'body', responseType: 'json'   }
+      { observe: 'body', responseType: 'json' }
     );
   }
 
-  getMyBookings(id:string): Observable <MyBookings> {
+  getMyBookings(id: string): Observable<MyBookings> {
 
     let url = this.baseUrl + 'bookings/guest/' + id;
     return this.http.get<MyBookings>(url,
-      { observe: 'body', responseType: 'json'   }
-      );
+      { observe: 'body', responseType: 'json' }
+    );
   }
 
-  getBooking(id:string): Observable <BookingState> {
+  getBooking(id: string): Observable<BookingState> {
 
-  let url = this.baseUrl + 'bookings/' + id;
-  return this.http.get<BookingState>(url,
-    { observe: 'body', responseType: 'json'   }
+    let url = this.baseUrl + 'bookings/' + id;
+    return this.http.get<BookingState>(url,
+      { observe: 'body', responseType: 'json' }
     );
-}
+  }
 
-getBookingResponse(id:string): Observable < HttpResponse < BookingBooked >> {
+  getBookingResponse(id: string): Observable<HttpResponse<BookingBooked>> {
 
-  let url = this.baseUrl + 'bookings/' + id;
-  return this.http.get<BookingBooked>(url,
-    { observe: 'response', responseType: 'json'   }
+    let url = this.baseUrl + 'bookings/' + id;
+    return this.http.get<BookingBooked>(url,
+      { observe: 'response', responseType: 'json' }
     );
-}
+  }
 
-roomTypes: string[] = ['Single', 'Double', 'Family'];
+  roomTypes: string[] = ['Single', 'Double', 'Family'];
   availableRooms: Array<Room> = [
     //add 10 rooms
-    { roomId: "101",  roomNumber: "101", roomType: "Single", price: 1500, currency: "SEK" },
-    { roomId: "102",  roomNumber: "102", roomType: "Double", price: 2100, currency: "SEK" },
-    { roomId: "103",  roomNumber: "103", roomType: "Family", price: 2900, currency: "SEK" },
-    { roomId: "104",  roomNumber: "104", roomType: "Single", price: 1500, currency: "SEK" },
-    { roomId: "105",  roomNumber: "105", roomType: "Double", price: 2100, currency: "SEK" },
-    { roomId: "106",  roomNumber: "106", roomType: "Family", price: 2900, currency: "SEK" },
-    { roomId: "107",  roomNumber: "107", roomType: "Single", price: 1400, currency: "SEK" },
-    { roomId: "108",  roomNumber: "108", roomType: "Single", price: 1500, currency: "SEK" },
-    { roomId: "109",  roomNumber: "109", roomType: "Double", price: 2100, currency: "SEK" },
-    { roomId: "110",  roomNumber: "110", roomType: "Family", price: 2900, currency: "SEK" },
+    { roomId: "101", roomNumber: "101", roomType: "Single", price: 1500, currency: "SEK" },
+    { roomId: "102", roomNumber: "102", roomType: "Double", price: 2100, currency: "SEK" },
+    { roomId: "103", roomNumber: "103", roomType: "Family", price: 2900, currency: "SEK" },
+    { roomId: "104", roomNumber: "104", roomType: "Single", price: 1500, currency: "SEK" },
+    { roomId: "105", roomNumber: "105", roomType: "Double", price: 2100, currency: "SEK" },
+    { roomId: "106", roomNumber: "106", roomType: "Family", price: 2900, currency: "SEK" },
+    { roomId: "107", roomNumber: "107", roomType: "Single", price: 1400, currency: "SEK" },
+    { roomId: "108", roomNumber: "108", roomType: "Single", price: 1500, currency: "SEK" },
+    { roomId: "109", roomNumber: "109", roomType: "Double", price: 2100, currency: "SEK" },
+    { roomId: "110", roomNumber: "110", roomType: "Family", price: 2900, currency: "SEK" },
   ];
 
   getAvailableRooms(): Array<Room> {
@@ -252,13 +259,13 @@ roomTypes: string[] = ['Single', 'Double', 'Family'];
     return this.roomTypes.slice();
   }
 
-options2 = { observe: 'body', responseType: 'json'   };
+  options2 = { observe: 'body', responseType: 'json' };
 
-options = {
-  // headers: new HttpHeaders({ 'Content-Type': 'application/json' }) ,
-  observe: 'body',
-  responseType: 'json'
-};
+  options = {
+    // headers: new HttpHeaders({ 'Content-Type': 'application/json' }) ,
+    observe: 'body',
+    responseType: 'json'
+  };
   /* https://angular.io/guide/http
 
     options: {
