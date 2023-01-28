@@ -12,8 +12,8 @@
           formGroupName="stayPeriod"
           [rangePicker]="stayPeriodPicker"
           [min]="minDateCheckIn" [max]="maxDateCheckIn">
-          <input matStartDate placeholder="From" formControlName="checkInDate">
-          <input matEndDate placeholder="To" formControlName="checkOutDate">
+          <input matStartDate placeholder="From" formControlName="checkInDate" (dateChange)="onBookingFormChange()">
+          <input matEndDate placeholder="To" formControlName="checkOutDate" (dateChange)="onBookingFormChange()">
         </mat-date-range-input>
         <mat-hint>YYYY-MM-DD – YYYY-MM-DD</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="stayPeriodPicker"></mat-datepicker-toggle>
@@ -37,7 +37,7 @@
         <mat-label>Room To Book</mat-label>
         <mat-select formControlName="room"
           [compareWith]="comparerRoomsSelection"
-          (selectionChange)="onRoomSelected($event.value)">
+          (selectionChange)="onRoomSelected($event.value); onBookingFormChange()">
           <mat-option *ngFor="let room of filteredAvailableRooms" [value]="room">
             {{room.roomType}} {{room.price}}{{room.currency}} nr:{{room.roomNumber}}
           </mat-option>

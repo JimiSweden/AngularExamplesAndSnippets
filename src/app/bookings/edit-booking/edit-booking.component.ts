@@ -77,13 +77,16 @@ export class EditBookingComponent implements OnInit, OnDestroy {
     private bookingsService: BookingsService,
     private route: ActivatedRoute) { }
 
+    updateDisplayedPrice() {
+      this.bookingPriceCurrentSelected = this.bookingsService.calculatePrice(
+        this.bookingForm.value.room,
+        this.bookingForm.value.stayPeriod.checkInDate,
+        this.bookingForm.value.stayPeriod.checkOutDate);
+    }
 
   onBookingFormChange() {
     // console.log('onBookingFormChange');
-    this.bookingPriceCurrentSelected = this.bookingsService.calculatePrice(
-      this.bookingForm.value.room,
-      this.bookingForm.value.stayPeriod.checkInDate,
-      this.bookingForm.value.stayPeriod.checkOutDate);
+    this.updateDisplayedPrice();
 
     //set bookingPrice from calculated price
     this.bookingForm.patchValue({
@@ -249,9 +252,15 @@ export class EditBookingComponent implements OnInit, OnDestroy {
 
     this.changeBookingSubscription = this.bookingsService.changeBooking(bookingCommand)
       .subscribe({
-        next: (val: any) => { console.log(val, "room booking submitted") },
+        next: (val: any) => this.onBookingChanged(val),
         error: (err: any) => { console.error(err) },
       })
+  }
+
+  onBookingChanged(val: any) {
+
+    console.log(val, "room booking changed")
+    this.updateDisplayedPrice(); //checkOutDate._isMoment > checkOutDate = checkOutDate.toDate()
   }
 
   ngOnDestroy(): void {

@@ -5,6 +5,7 @@ import { Observable, Subject } from 'rxjs';
 import { map, catchError } from 'rxjs/operators'
 
 import { v4 as uuidv4 } from 'uuid';
+import * as moment from 'moment';
 
 // class BookingCommands {
 //   changeBooking = ChangeBooking;
@@ -173,7 +174,16 @@ export class BookingsService {
     ].slice();
   }
 
-  getDays(checkInDate: Date, checkOutDate: Date): number {
+  getDays(checkInDate: Date | moment.Moment, checkOutDate: Date| moment.Moment): number {
+
+    //check if moment or date -
+    if (moment.isMoment(checkInDate)) {
+      checkInDate = checkInDate.toDate();
+    }
+    if (moment.isMoment(checkOutDate)) {
+      checkOutDate = checkOutDate.toDate();
+    }
+
     let timeDiff = Math.abs(checkOutDate.getTime() - checkInDate.getTime());
     let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
     return diffDays;
