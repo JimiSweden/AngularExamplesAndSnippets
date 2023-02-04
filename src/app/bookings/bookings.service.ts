@@ -146,6 +146,20 @@ export interface Room {
   currency: string;
 }
 
+@Injectable({ providedIn: 'root' })
+export class AppConfiguration {
+  api = {
+
+    baseUrl : 'https://localhost:44352/',
+    // baseUrl = 'http://localhost:51218/';
+    queryApiBookings : 'bookings',
+    commandApiBooking : 'booking',
+  };
+  signalr = {
+    bookingHubUrl:this.api.baseUrl + 'hubs/bookingsHub',
+  }
+}
+
 
 @Injectable({ providedIn: 'root' })
 export class BookingsService {
@@ -194,12 +208,13 @@ export class BookingsService {
     return room.price * days;
   }
 
-  baseUrl = 'https://localhost:44352/';
+  baseUrl = this.appConfiguration.api.baseUrl;
   // baseUrl = 'http://localhost:51218/';
-  queryApiBookings = 'bookings';
-  commandApiBooking = 'booking';
+  queryApiBookings = this.appConfiguration.api.queryApiBookings;
+  commandApiBooking = this.appConfiguration.api.commandApiBooking;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    private appConfiguration: AppConfiguration) { }
 
   bookRoom(command: BookRoomCommand) {
     let url = this.baseUrl + this.commandApiBooking + '/book';

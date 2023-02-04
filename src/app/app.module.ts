@@ -47,6 +47,7 @@ import { BookRoomComponent } from './bookings/book-room/book-room.component';
 import { BookedRoomChangeComponent } from './bookings/booked-room-change/booked-room-change.component';
 import { MyBookingsComponent } from './bookings/my-bookings/my-bookings.component';
 import { EditBookingComponent } from './bookings/edit-booking/edit-booking.component';
+import { HubConnectionBuilder } from '@microsoft/signalr';
 
 //override default date adapter date formats
 export const MY_DATE_FORMATS = {
@@ -109,10 +110,13 @@ export const MY_DATE_FORMATS = {
     MatMomentDateModule
   ],
   providers: [
+  //add  HubConnectionBuilder to providers
+  HubConnectionBuilder,
     //override default date adapter date formats
     {provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS},
     //override default date adapter locale
      {provide: MAT_DATE_LOCALE, useValue: 'sv-SE'},
+
   ],
   bootstrap: [AppComponent]
 })
